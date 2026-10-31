@@ -63,7 +63,17 @@ nav small{opacity:.7;margin-left:6px;letter-spacing:0}
 .card h2{font-family:var(--display);font-weight:600;font-size:24px;line-height:1.15;margin:0;text-wrap:balance;color:var(--ink)}
 .card p{margin:0;color:var(--muted);font-size:15.5px;flex:1}
 .price{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--rule);padding-top:10px;margin-top:6px}
-.acts{display:flex;gap:8px;margin-top:12px}.acts .dm{flex:1 1 100%;justify-content:center}
+.acts{display:flex;gap:8px;margin-top:12px}.acts .dm{flex:1 1 auto;justify-content:center}
+.bagadd{flex:0 0 auto;min-height:48px;padding:0 16px;border:1px solid var(--maroon);border-radius:999px;background:var(--cream);color:var(--maroon);font:600 16px var(--body);cursor:pointer;white-space:nowrap}
+.bagadd.on{background:var(--gold);border-color:var(--gold)}
+.bagbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:20;width:min(440px,calc(100vw - 24px));display:flex;align-items:center;gap:12px;padding:10px 12px 10px 16px;border:1px solid var(--gold);border-radius:999px;background:var(--maroon-deep,#3f0f17);color:var(--cream);box-shadow:0 10px 30px rgba(0,0,0,.45);cursor:pointer;font:inherit;text-align:left}
+.bagbar .bi{font-size:22px}.bagbar .bt{flex:1;display:flex;flex-direction:column;line-height:1.2}.bagbar .bt b{font-family:var(--display);font-size:19px}.bagbar .bt small{font-size:14px;color:var(--gold)}
+.bagbar .bgo{background:var(--gold);color:var(--maroon);border-radius:999px;padding:9px 16px;font-weight:600;white-space:nowrap}
+body.hasbag{padding-bottom:90px}
+.obag{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.obag li{display:flex;gap:10px;align-items:center;padding:8px;border:1px solid var(--rule);border-radius:3px;background:var(--cream)}
+.obag img{width:56px;height:42px;object-fit:cover;border-radius:2px;flex:none}.obag .on{flex:1;min-width:0;line-height:1.2}.obag .on b{display:block;font-family:var(--display);font-size:17px}.obag .on span{font-size:13px;color:var(--muted)}
+.qs{display:flex;align-items:center;gap:2px}.qs button{width:32px;height:32px;border:1px solid var(--rule);background:#fff;border-radius:50%;font:600 17px var(--body);color:var(--maroon);cursor:pointer}.qs span{min-width:22px;text-align:center;font-weight:600}
 .dm{position:relative;overflow:hidden;flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 12px;border:0;border-radius:999px;cursor:pointer;font:inherit;
   background:linear-gradient(135deg,var(--maroon) 0%,#6e2030 100%);color:var(--gold);
   box-shadow:inset 0 0 0 1px var(--gold),inset 0 0 0 3px var(--maroon),inset 0 0 0 4px rgba(217,180,106,.45);transition:transform .2s ease,box-shadow .2s ease}
@@ -184,13 +194,14 @@ p.ed:empty::before{content:attr(data-ph);color:#b9a08e;font-style:italic}
     <button type="button" class="ox" id="oClose" aria-label="Close">×</button>
     <p class="okick">Make it yours</p>
     <h2 id="oTitle">Order this piece</h2>
-    <div class="opiece"><img id="oImg" alt=""><div><b id="oName"></b><span id="oPrice"></span></div></div>
+    <ul class="obag" id="oBag" hidden></ul>
+    <div class="opiece" id="oPiece"><img id="oImg" alt=""><div><b id="oName"></b><span id="oPrice"></span></div></div>
     <div id="oFields">
       <label>Your name<input name="name" required autocomplete="name"></label>
       <label>Phone or WhatsApp<input name="phone" type="tel" inputmode="tel" required autocomplete="tel"></label>
       <label>City<input name="city" required autocomplete="address-level2"></label>
       <label>Delivery address<input name="address" required autocomplete="street-address"></label>
-      <div class="orow"><label>Quantity<input name="qty" type="number" min="1" max="20" value="1" inputmode="numeric"></label>
+      <div class="orow"><label id="oQtyL">Quantity<input name="qty" type="number" min="1" max="20" value="1" inputmode="numeric"></label>
       <label class="ogift"><input name="gift" type="checkbox"> It's a gift</label></div>
       <label>Note <small>(ring size, gift message, colour)</small><textarea name="note" rows="2"></textarea></label>
       <div class="osum" id="oSum" aria-live="polite"></div>
@@ -216,6 +227,7 @@ p.ed:empty::before{content:attr(data-ph);color:#b9a08e;font-style:italic}
   </form>
 </dialog>
 <div id="toast" class="toast" role="status" hidden></div>
+<button type="button" class="bagbar" id="bagBar" hidden><span class="bi" aria-hidden="true">👜</span><span class="bt"><b id="bagCount"></b><small id="bagTot"></small></span><span class="bgo">Order bag ✈</span></button>
 
 <script>
 const ITEMS=[
@@ -896,7 +908,7 @@ function render(){
     <div class="price"><label class="pe">Rs. <input type="number" inputmode="numeric" min="0" step="10" id="price-${i.sku}" data-sku="${i.sku}" data-f="price" value="${i.price??""}" placeholder="price"></label><span class="sku">${i.sku}</span></div>`
     :`<h2>${n}</h2><p>${esc(i.desc)}</p>
     <div class="price"><b>${priceText(i.price)}</b><span class="sku">${i.sku}</span></div>
-    <div class="acts"><button type="button" class="dm" data-sku="${i.sku}" aria-label="Order ${n} with the order form"><svg class="plane" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 2.5 2.8 9.6c-.8.3-.8 1.4 0 1.7l6.9 2.6 2.6 6.9c.3.8 1.4.8 1.7 0L21.5 2.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.7 13.9 21.5 2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><b>Make it yours</b></button></div>`}</div>
+    <div class="acts"><button type="button" class="dm" data-sku="${i.sku}" aria-label="Order ${n} with the order form"><svg class="plane" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 2.5 2.8 9.6c-.8.3-.8 1.4 0 1.7l6.9 2.6 2.6 6.9c.3.8 1.4.8 1.7 0L21.5 2.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.7 13.9 21.5 2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><b>Make it yours</b></button><button type="button" class="bagadd" data-sku="${i.sku}" aria-label="Add ${n} to your bag">${inBag(i.sku)?"✓ In bag":"+ Bag"}</button></div>`}</div>
   </article>`}).join("");
   grid.querySelectorAll("figure").forEach(f=>{
     const s=f.querySelector(".slides"),pips=[...f.querySelectorAll(".pips button")],c=f.querySelector(".count");
@@ -930,12 +942,25 @@ function copyText(t){try{if(navigator.clipboard&&navigator.clipboard.writeText){
 function fallbackCopy(t){try{const a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();document.execCommand("copy");a.remove()}catch(e){}}
 const dlg=document.getElementById("orderDlg"),oForm=document.getElementById("orderForm");let oItem=null;const DELIVERY=250;
 function oQty(){return Math.max(1,parseInt(oForm.qty.value)||1)}
-function updSum(){const q=oQty(),el=document.getElementById("oSum");
+let BAG=[];try{BAG=JSON.parse(localStorage.getItem("nishaani-bag")||"[]").filter(b=>ITEMS.some(i=>i.sku===b.sku))}catch(e){BAG=[]}
+let oMode="one";
+function inBag(sku){return BAG.some(b=>b.sku===sku)}
+function bagLines(){return BAG.map(b=>({it:view(ITEMS.find(i=>i.sku===b.sku)),q:b.qty}))}
+function orderLines(){return oMode==="bag"?bagLines():(oItem?[{it:oItem,q:oQty()}]:[])}
+function saveBag(){try{localStorage.setItem("nishaani-bag",JSON.stringify(BAG))}catch(e){}updBag()}
+function updBag(){const bar=document.getElementById("bagBar"),n=BAG.reduce((s,b)=>s+b.qty,0);bar.hidden=!n;document.body.classList.toggle("hasbag",!!n);
+  if(n){document.getElementById("bagCount").textContent=`Your bag · ${n} piece${n>1?"s":""}`;const sub=bagLines().reduce((s,l)=>s+(l.it.price||0)*l.q,0);document.getElementById("bagTot").textContent=priceText(sub)+" + delivery"}
+  document.querySelectorAll(".bagadd").forEach(b=>{const on=inBag(b.dataset.sku);b.classList.toggle("on",on);b.textContent=on?"✓ In bag":"+ Bag"})}
+function drawBag(){const ul=document.getElementById("oBag");ul.innerHTML=bagLines().map(l=>`<li data-sku="${l.it.sku}">${l.it.imgs.length?`<img src="${l.it.imgs[0]}" alt="">`:""}<div class="on"><b>${esc(l.it.name)}</b><span>${l.it.price!=null?priceText(l.it.price)+" · ":""}${l.it.sku}</span></div><div class="qs"><button type="button" data-d="-1" aria-label="One less">${l.q>1?"−":"🗑"}</button><span>${l.q}</span><button type="button" data-d="1" aria-label="One more">+</button></div></li>`).join("")}
+function updSum(){const el=document.getElementById("oSum"),L=orderLines();
+  if(L.length&&L.every(l=>l.it.price!=null)){const sub=L.reduce((s,l)=>s+l.it.price*l.q,0);el.innerHTML=L.map(l=>`<div><span>${l.q} × ${oMode==="bag"?esc(l.it.name):priceText(l.it.price)}</span><span>${priceText(l.it.price*l.q)}</span></div>`).join("")+`<div><span>Delivery charges</span><span>${priceText(DELIVERY)}</span></div><div class="tot"><span>Total</span><span>${priceText(sub+DELIVERY)}</span></div>`;return}
+  const q=oQty();
   if(oItem&&oItem.price!=null){const sub=oItem.price*q;el.innerHTML=`<div><span>${q} × ${priceText(oItem.price)}</span><span>${priceText(sub)}</span></div><div><span>Delivery charges</span><span>${priceText(DELIVERY)}</span></div><div class="tot"><span>Total</span><span>${priceText(sub+DELIVERY)}</span></div>`}
   else el.innerHTML=`<div><span>Delivery charges</span><span>${priceText(DELIVERY)}</span></div>`}
 grid.addEventListener("click",e=>{const l=e.target.closest("a.dmlink");if(l){const it=view(ITEMS.find(x=>x.sku===l.dataset.sku));copyText(`Hi Nishaani! I'd like to order the ${it.name} (${it.sku})${it.price!=null?", "+priceText(it.price):""}. Is it available?`);if(INAPP){e.preventDefault();say("Message copied ♡ Tap ✕ at the top, then tap Message on our profile and paste.",6000)}else say("Message copied. Paste it in the Instagram chat.");return}
+  const g=e.target.closest("button.bagadd");if(g){const s=g.dataset.sku;if(inBag(s)){BAG=BAG.filter(b=>b.sku!==s);say("Removed from your bag")}else{BAG.push({sku:s,qty:1});say("Added to your bag ♡")}saveBag();return}
   const a=e.target.closest("button.dm");if(!a)return;
-  oItem=view(ITEMS.find(x=>x.sku===a.dataset.sku));
+  oMode="one";oItem=view(ITEMS.find(x=>x.sku===a.dataset.sku));
   if(!dlg.showModal){const msg=`Hi Nishaani! I'd like to order the ${oItem.name} (${oItem.sku}). Is it available?`;copyText(msg);say("Message copied. Paste it in the Instagram chat.");return}
   e.preventDefault();
   document.getElementById("oName").textContent=oItem.name;
@@ -944,7 +969,15 @@ grid.addEventListener("click",e=>{const l=e.target.closest("a.dmlink");if(l){con
   document.getElementById("oFields").hidden=false;document.getElementById("oDone").hidden=true;document.getElementById("oErr").hidden=true;
   oForm.querySelectorAll("[aria-invalid]").forEach(x=>x.removeAttribute("aria-invalid"));
   oForm.qty.value=1;oForm.note.value="";oForm.gift.checked=false;updSum();
-  dlg.showModal();setTimeout(()=>oForm.name.focus(),30)});
+  setMode();dlg.showModal();setTimeout(()=>oForm.name.focus(),30)});
+function setMode(){const bag=oMode==="bag";document.getElementById("oTitle").textContent=bag?"Order your bag":"Order this piece";
+  document.getElementById("oPiece").hidden=bag;document.getElementById("oBag").hidden=!bag;document.getElementById("oQtyL").hidden=bag;if(bag)drawBag();updSum()}
+document.getElementById("bagBar").onclick=()=>{if(!BAG.length)return;oMode="bag";
+  document.getElementById("oFields").hidden=false;document.getElementById("oDone").hidden=true;document.getElementById("oErr").hidden=true;
+  oForm.querySelectorAll("[aria-invalid]").forEach(x=>x.removeAttribute("aria-invalid"));oForm.note.value="";oForm.gift.checked=false;
+  setMode();dlg.showModal()};
+document.getElementById("oBag").addEventListener("click",e=>{const b=e.target.closest("button[data-d]");if(!b)return;const s=b.closest("li").dataset.sku,x=BAG.find(y=>y.sku===s);
+  x.qty=Math.min(20,x.qty+Number(b.dataset.d));if(x.qty<1)BAG=BAG.filter(y=>y.sku!==s);saveBag();if(!BAG.length){dlg.close();return}drawBag();updSum()});
 oForm.qty.addEventListener("input",updSum);
 document.getElementById("oClose").onclick=()=>dlg.close();
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
@@ -959,17 +992,22 @@ oForm.addEventListener("submit",e=>{e.preventDefault();
   req.forEach(x=>{const bad=!x.value.trim();x.toggleAttribute("aria-invalid",bad);if(bad){x.setAttribute("aria-invalid","true");ok=false}});
   if(!ok){document.getElementById("oErr").hidden=false;req.find(x=>!x.value.trim()).focus();return}
   const q=Math.max(1,parseInt(f.qty.value)||1);
-  const lines=["Hi Nishaani! I'd like to place an order 💛","",
+  const BL=oMode==="bag"?bagLines():null,bsub=BL?BL.reduce((s,l)=>s+(l.it.price||0)*l.q,0):0;
+  const lines=BL?["Hi Nishaani! I'd like to place an order 💛","",
+    ...BL.map((l,k)=>`${k+1}. ${l.it.name} (${l.it.sku}) – ${l.it.price!=null?priceText(l.it.price):"price?"}${l.q>1?` × ${l.q}`:""}`),"",
+    `Pieces: ${BL.reduce((s,l)=>s+l.q,0)}`,`Subtotal: ${priceText(bsub)}`,`Delivery: ${priceText(DELIVERY)}`,`Total: ${priceText(bsub+DELIVERY)}`,""]:["Hi Nishaani! I'd like to place an order 💛","",
     `Piece: ${oItem.name} (${oItem.sku})`,
     oItem.price!=null?`Price: ${priceText(oItem.price)}${q>1?` × ${q}`:""}`:null,
     `Quantity: ${q}`,
     `Delivery: ${priceText(DELIVERY)}`,
-    oItem.price!=null?`Total: ${priceText(oItem.price*q+DELIVERY)}`:null,"",
+    oItem.price!=null?`Total: ${priceText(oItem.price*q+DELIVERY)}`:null,""];
+  lines.push(
     `Name: ${f.name.value.trim()}`,`Phone: ${f.phone.value.trim()}`,`City: ${f.city.value.trim()}`,
     `Address: ${f.address.value.trim()}`,
     f.gift.checked?"This is a gift 🎁":null,
-    f.note.value.trim()?`Note: ${f.note.value.trim()}`:null].filter(x=>x!==null);
-  const msg=lines.join("\n");
+    f.note.value.trim()?`Note: ${f.note.value.trim()}`:null);
+  const msg=lines.filter(x=>x!==null).join("\n");
+  if(BL){BAG=[];saveBag()}
   copyText(msg);
   document.getElementById("oMsg").textContent=msg;
   document.getElementById("oFields").hidden=true;document.getElementById("oDone").hidden=false;
@@ -979,7 +1017,7 @@ document.getElementById("oCopy").onclick=()=>{copyText(document.getElementById("
 try{const s=JSON.parse(localStorage.getItem("nishaani-buyer")||"null");if(s)["name","phone","city","address"].forEach(k=>{if(s[k])oForm[k].value=s[k]})}catch(err){}
 grid.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.dataset&&(e.target.dataset.f==="name"||e.target.dataset.f==="price")){e.preventDefault();e.target.blur()}});
 editBtn.onclick=()=>{editing=!editing;editBtn.textContent=editing?"Done editing":"Edit catalogue";editBtn.setAttribute("aria-pressed",editing);editNote.hidden=!editing;render()};
-render();
+render();updBag();
 (async()=>{
   if(!window.claude||!window.claude.use)return;
   const [d,u]=await Promise.all([claude.use("db"),claude.use("user")]);
