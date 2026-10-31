@@ -1,0 +1,960 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>*,*::before,*::after{box-sizing:border-box}body{margin:0}</style></head><body><title>Nishaani Collection</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&family=Noto+Nastaliq+Urdu:wght@500&display=swap">
+<style>
+/* Layout: Nishaani's brand card as a page. A maroon ground inside a double gold frame, the fingerprint seal and Urdu wordmark on top, cream keepsake cards below. Single brand look in every theme. */
+:root{
+  --maroon:#5a1822; --maroon-deep:#47121a; --gold:#d9b46a; --gold-dim:rgba(217,180,106,.45);
+  --cream:#f7eedf; --paper:#fbf5ea; --ink:#4a1720; --muted:#8a6a5e; --rule:#e6d4b4;
+  --display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --body:"EB Garamond",Georgia,"Times New Roman",serif;
+  --urdu:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq",serif;
+  color-scheme:dark;
+}
+html{background:var(--maroon)}
+body{background:var(--maroon);color:var(--cream);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px}
+.frame{max-width:1120px;margin:0 auto;border:1.5px solid var(--gold);padding:6px}
+.frame-inner{border:1px solid var(--gold-dim);padding-block:48px 40px;padding-inline:clamp(14px,4vw,48px)}
+header{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.seal{width:clamp(96px,18vw,132px);height:auto}
+.wordmark{width:clamp(120px,24vw,170px);height:auto;margin-top:14px}
+h1.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.kind{font-family:var(--body);font-weight:500;letter-spacing:.42em;font-size:14px;margin:4px 0 0;padding-left:.42em;color:var(--cream)}
+.dots{display:flex;align-items:center;gap:10px;margin:22px 0 14px}
+.dots i{display:block;width:56px;height:1px;background:var(--gold)}
+.dots b{display:flex;gap:5px}.dots b::before,.dots b::after,.dots b span{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.tag{font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(26px,5vw,38px);line-height:1.15;margin:0}
+.tag span{display:block;color:var(--gold)}
+.def{max-width:34em;margin:0 0 18px;font-size:14.5px;line-height:1.5;color:var(--cream);opacity:.85;text-wrap:balance}
+.def .ur{font-size:20px;color:var(--gold);font-family:serif;margin-right:8px;unicode-bidi:isolate}
+.def i{font-family:var(--display);font-size:18px;color:var(--gold)}
+.def em{font-style:normal;margin:0 .35em;color:var(--gold)}
+.def span:last-child{font-family:var(--display);font-style:italic;font-size:17px}
+.gift{max-width:30em;margin:14px 0 0;font-size:16px;line-height:1.5;color:var(--cream);opacity:.9;text-wrap:balance}
+.facts{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin:22px 0 0;padding:0;list-style:none;
+  font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.facts li+li::before{content:"·";margin-right:18px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:40px 0 30px}
+nav button{font:500 13px var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--cream);
+  background:transparent;border:1px solid var(--gold-dim);border-radius:999px;padding:8px 18px;cursor:pointer}
+nav button:hover{border-color:var(--gold)}
+nav button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--maroon-deep)}
+nav button:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
+nav small{opacity:.7;margin-left:6px;letter-spacing:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:26px 22px}
+.card{background:var(--paper);color:var(--ink);border-radius:2px;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 0 0 1px var(--gold-dim),0 10px 30px rgba(0,0,0,.25)}
+.card figure{margin:0;aspect-ratio:4/3;max-width:100%;position:relative;background:var(--cream)}
+.slides{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth}
+.slides::-webkit-scrollbar{display:none}
+.slides img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;display:block;scroll-snap-align:start}
+.pips{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:6px}
+.pips button{width:8px;height:8px;padding:0;border-radius:50%;border:1px solid var(--maroon);background:rgba(251,245,234,.8);cursor:pointer}
+.pips button[aria-current="true"]{background:var(--maroon)}
+.ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--maroon-deep)}
+.ph img{width:76px;height:auto;opacity:.75}
+.ph span{font-family:var(--display);font-style:italic;font-size:17px;color:var(--gold)}
+.sku{font-style:normal!important;letter-spacing:.12em;font-size:11px!important}
+.count{position:absolute;top:10px;right:10px;font-size:12px;letter-spacing:.08em;background:rgba(71,18,26,.75);color:var(--cream);padding:2px 9px;border-radius:999px}
+.info{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cat{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#a07c37}
+.card h2{font-family:var(--display);font-weight:600;font-size:24px;line-height:1.15;margin:0;text-wrap:balance;color:var(--ink)}
+.card p{margin:0;color:var(--muted);font-size:15.5px;flex:1}
+.price{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--rule);padding-top:10px;margin-top:6px}
+.acts{display:flex;gap:8px;margin-top:12px}
+.dm{position:relative;overflow:hidden;flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 12px;border:0;border-radius:999px;cursor:pointer;font:inherit;
+  background:linear-gradient(135deg,var(--maroon) 0%,#6e2030 100%);color:var(--gold);
+  box-shadow:inset 0 0 0 1px var(--gold),inset 0 0 0 3px var(--maroon),inset 0 0 0 4px rgba(217,180,106,.45);transition:transform .2s ease,box-shadow .2s ease}
+.dm b{font-family:var(--display);font-style:italic;font-weight:600;font-size:clamp(16px,4.6vw,19px);color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.dm::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(247,238,223,.28),transparent);transform:skewX(-20deg);transition:left .7s ease}
+.dm:hover::after,.dm:focus-visible::after{left:130%}
+.dm:hover,.dm:focus-visible{transform:translateY(-2px);box-shadow:inset 0 0 0 1px var(--gold),inset 0 0 0 3px var(--maroon),inset 0 0 0 4px rgba(217,180,106,.45),0 8px 18px rgba(90,24,34,.3)}
+.dm .plane{width:19px;height:19px;flex:none;transition:transform .3s ease}
+.dm:hover .plane,.dm:focus-visible .plane{transform:translate(3px,-3px) rotate(-8deg)}
+.dmlink{flex:none;display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;min-width:46px;padding:0 14px;border-radius:999px;border:1px solid var(--gold);background:var(--cream);color:var(--maroon);text-decoration:none;transition:background .2s,color .2s,transform .2s}
+.dmlink svg{width:20px;height:20px}
+.dmlink b{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:.06em}
+.dmlink:hover,.dmlink:focus-visible{background:var(--maroon);color:var(--gold);transform:translateY(-2px)}
+@media (max-width:360px){.dm .plane{display:none}.dm{padding:0 10px}.dmlink{padding:0 12px}.dmlink b{display:none}}
+.osend{width:100%;justify-content:flex-start;gap:12px;min-height:52px}
+.osend .dmt{display:flex;flex-direction:column;line-height:1.1;text-align:left}.osend .dmt b{font-size:19px}
+.osend .dmt small{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-top:3px}
+@media (prefers-reduced-motion:reduce){.dm,.dm *,.dm::after{transition:none!important}}
+.odlg{width:min(440px,calc(100vw - 32px));max-height:calc(100dvh - 32px);padding:0;border:0;border-radius:4px;background:var(--paper);color:var(--ink);box-shadow:0 0 0 1px var(--gold),0 0 0 5px var(--paper),0 0 0 6px var(--gold),0 20px 60px rgba(0,0,0,.5)}
+.odlg [hidden]{display:none!important}
+.odlg::backdrop{background:rgba(40,8,14,.72)}
+.odlg form{padding:22px 20px 20px;display:flex;flex-direction:column;gap:12px;position:relative}
+.ox{position:absolute;top:8px;right:10px;width:40px;height:40px;border:0;background:none;font-size:28px;line-height:1;color:var(--muted);cursor:pointer}
+.okick{margin:0;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#a07c37}
+.odlg h2{margin:-6px 0 0;font-family:var(--display);font-weight:600;font-size:28px;color:var(--ink)}
+.opiece{display:flex;gap:12px;align-items:center;padding:10px;border:1px solid var(--rule);border-radius:3px;background:var(--cream)}
+.opiece img{width:64px;height:48px;object-fit:cover;border-radius:2px;flex:none}
+.opiece b{display:block;font-family:var(--display);font-size:19px;line-height:1.1}.opiece span{font-size:14px;color:var(--muted)}
+#oFields{display:flex;flex-direction:column;gap:10px}
+.odlg label{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--ink)}
+.odlg label small{color:var(--muted);font-size:12.5px}
+.odlg input:not([type=checkbox]),.odlg textarea{font:16px var(--body);color:var(--ink);background:#fff;border:1px solid var(--rule);border-radius:3px;padding:9px 11px;min-height:44px;width:100%;box-sizing:border-box}
+.odlg textarea{resize:vertical;min-height:60px}
+.odlg input:focus-visible,.odlg textarea:focus-visible{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.odlg input[aria-invalid=true]{border-color:#b3261e}
+.orow{display:flex;gap:14px;align-items:flex-end}.orow label:first-child{width:96px}
+.ogift{flex-direction:row!important;align-items:center;gap:8px!important;min-height:44px;cursor:pointer}
+.ogift input{width:20px;height:20px;accent-color:var(--maroon)}
+.osum{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:8px 2px;font-size:15px}
+.osum div{display:flex;justify-content:space-between;padding:2px 0}
+.osum .tot{font-family:var(--display);font-weight:600;font-size:20px;color:var(--ink);border-top:1px dashed var(--rule);margin-top:4px;padding-top:6px}
+.oerr{margin:0;color:#b3261e;font-size:14px}
+@media (max-width:360px){.dm .plane{display:none}.dm{padding:0 10px}.dmlink{padding:0 12px}.dmlink b{display:none}}
+.osend{width:100%;border:0;cursor:pointer;text-align:left;font:inherit}
+.odone{margin:0;font-size:16px}
+.omsg{margin:0;white-space:pre-wrap;font:14px/1.5 var(--body);background:var(--cream);border:1px dashed var(--gold);padding:10px 12px;border-radius:3px;max-height:180px;overflow:auto}
+.obtns{display:flex;gap:10px}
+.obtn{flex:1;min-height:44px;display:flex;align-items:center;justify-content:center;border:1px solid var(--maroon);border-radius:999px;background:none;color:var(--maroon);font:600 16px var(--body);text-decoration:none;cursor:pointer}
+.obtn.solid{background:var(--maroon);color:var(--cream)}
+.price b{font-family:var(--display);font-size:23px;font-weight:600;font-variant-numeric:lining-nums tabular-nums;color:var(--ink)}
+.price span{font-size:13px;font-style:italic;color:var(--muted)}
+.empty{text-align:center;padding:56px 16px;border:1px dashed var(--gold-dim)}
+.empty h2{font-family:var(--display);font-style:italic;font-weight:500;font-size:30px;margin:0 0 6px;color:var(--gold)}
+.empty p{margin:0;color:var(--cream);opacity:.85}
+footer{text-align:center;padding-top:56px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.urdu{font-family:var(--urdu);font-size:clamp(22px,4vw,28px);line-height:1.9;color:var(--gold);margin:0;padding:0 .2em;text-align:center;width:100%}
+footer .en{font-family:var(--display);font-style:italic;font-size:20px;line-height:1.3;margin:4px 0 14px;color:var(--cream);opacity:.9}
+.order{display:inline-flex;align-items:center;gap:10px;color:var(--maroon-deep);background:var(--gold);text-decoration:none;
+  font:500 16px var(--body);letter-spacing:.06em;padding:11px 22px;border-radius:999px}
+.order:hover{background:var(--cream)}
+.order:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+.care{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:26px 0 0}
+.care-list{margin:0;font-size:15px;opacity:.85}
+.editbtn{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;
+  font:500 15px var(--body);letter-spacing:.06em;background:var(--cream);color:var(--maroon-deep);border:1.5px solid var(--gold);border-radius:999px;padding:11px 20px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.editbtn[aria-pressed="true"]{background:var(--gold)}
+.editbtn:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+.editnote{text-align:center;margin:-12px auto 22px;max-width:60ch;color:var(--gold);font-style:italic}
+.ed{outline:1px dashed #c9a35a;outline-offset:3px;border-radius:2px;cursor:text}
+.ed:focus{outline:2px solid #a07c37;background:#fff}
+p.ed:empty::before{content:attr(data-ph);color:#b9a08e;font-style:italic}
+.pe{display:flex;align-items:baseline;gap:6px;font-family:var(--display);font-size:22px;font-weight:600;color:var(--ink)}
+.pe input{width:7em;font:600 20px var(--display);color:var(--ink);background:#fff;border:1px solid #c9a35a;border-radius:3px;padding:2px 6px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:21;background:var(--maroon-deep);color:var(--cream);border:1px solid var(--gold);padding:8px 16px;border-radius:999px;font-size:15px}
+@media (prefers-reduced-motion:reduce){.slides{scroll-behavior:auto}}
+</style>
+
+<div class="frame"><div class="frame-inner">
+  <header>
+    <h1 class="sr">Nishaani Jewellery</h1>
+    <img class="seal" src="img/emblem.png" alt="Nishaani fingerprint seal">
+    <img class="wordmark" src="img/wordmark.png" alt="نشانی">
+    <p class="kind">JEWELLERY</p>
+    <div class="dots" aria-hidden="true"><i></i><b><span></span></b><i></i></div>
+    <p class="def"><span class="ur" lang="ur">نشانی</span> <i>nishaani</i> <em>·</em> <span>a sign, a token, something you leave behind to be remembered by.</span></p>
+    <p class="tag">Leave your mark<span>on the ones you love.</span></p>
+    <p class="gift">Give them a nishaani, a little piece of you they'll wear every day.</p>
+    <ul class="facts"><li>Stainless steel</li><li>Gold tone</li><li>Everyday wear</li></ul>
+  </header>
+
+  <nav id="filters" aria-label="Categories"></nav>
+  <p id="editNote" class="editnote" hidden>Editing is on. Tap a name, description or price to change it. Each change saves when you tap away, and everyone who opens the catalogue sees it.</p>
+  <main id="grid" class="grid"></main>
+  <div id="empty" class="empty" hidden>
+    <h2>Coming soon</h2>
+    <p id="emptyText">New pieces are being photographed.</p>
+  </div>
+
+  <footer>
+    <a class="order" href="https://instagram.com/nishaani_jewellery" target="_blank" rel="noopener">Order on Instagram · @nishaani_jewellery</a>
+    <p class="care">Keep your keepsake shining</p>
+    <p class="care-list">keep dry · perfume first · store in its pouch · wipe gently</p>
+  </footer>
+</div></div>
+<button type="button" id="editBtn" class="editbtn" aria-pressed="false" hidden>Edit catalogue</button>
+<dialog id="orderDlg" class="odlg" aria-labelledby="oTitle">
+  <form id="orderForm" method="dialog" novalidate>
+    <button type="button" class="ox" id="oClose" aria-label="Close">×</button>
+    <p class="okick">Make it yours</p>
+    <h2 id="oTitle">Order this piece</h2>
+    <div class="opiece"><img id="oImg" alt=""><div><b id="oName"></b><span id="oPrice"></span></div></div>
+    <div id="oFields">
+      <label>Your name<input name="name" required autocomplete="name"></label>
+      <label>Phone or WhatsApp<input name="phone" type="tel" inputmode="tel" required autocomplete="tel"></label>
+      <label>City<input name="city" required autocomplete="address-level2"></label>
+      <label>Delivery address<input name="address" required autocomplete="street-address"></label>
+      <div class="orow"><label>Quantity<input name="qty" type="number" min="1" max="20" value="1" inputmode="numeric"></label>
+      <label class="ogift"><input name="gift" type="checkbox"> It's a gift</label></div>
+      <label>Note <small>(ring size, gift message, colour)</small><textarea name="note" rows="2"></textarea></label>
+      <div class="osum" id="oSum" aria-live="polite"></div>
+      <p class="oerr" id="oErr" role="alert" hidden>Please add your name, phone, city and delivery address.</p>
+      <button type="submit" class="dm osend"><svg class="plane" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 2.5 2.8 9.6c-.8.3-.8 1.4 0 1.7l6.9 2.6 2.6 6.9c.3.8 1.4.8 1.7 0L21.5 2.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.7 13.9 21.5 2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="dmt"><b>Send on Instagram</b><small>opens our DMs</small></span></button>
+    </div>
+    <div id="oDone" hidden>
+      <p class="odone">Your order message is copied. In the Instagram chat that just opened, <b>paste it and press send</b>. We'll reply soon.</p>
+      <pre id="oMsg" class="omsg"></pre>
+      <div class="obtns"><button type="button" id="oCopy" class="obtn">Copy again</button><a id="oOpen" class="obtn solid" href="https://ig.me/m/nishaani_jewellery" target="_blank" rel="noopener">Open Instagram</a></div>
+    </div>
+  </form>
+</dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script>
+const ITEMS=[
+{
+"cat": "Bracelets",
+"sku": "BR-001",
+"name": "Sleek Chain Bracelet",
+"price": 990,
+"imgs": [
+"img/br-001-03496.jpg",
+"img/br-001-03498.jpg",
+"img/br-001-03499.jpg",
+"img/br-001-03493.jpg"
+],
+"desc": "Three delicate chains layered into one bracelet, with an adjustable clasp."
+},
+{
+"cat": "Bracelets",
+"sku": "BR-002",
+"name": "Bloomlet Bracelet",
+"price": 990,
+"imgs": [
+"img/br-002-03482.jpg",
+"img/br-002-03485.jpg",
+"img/br-002-03479.jpg",
+"img/br-002-03481.jpg"
+],
+"desc": "A dainty chain with little clover, star and crystal charms. Adjustable length."
+},
+{
+"cat": "Bracelets",
+"sku": "BR-003",
+"name": "Bold Chain Bracelet",
+"price": 890,
+"imgs": [
+"img/br-003-04141.jpg",
+"img/br-003-04145.jpg",
+"img/br-003-04147.jpg",
+"img/br-003-04150.jpg"
+],
+"desc": "A bold curb chain finished with a classic T-bar toggle clasp. Easy to put on and made to be noticed."
+},
+{
+"cat": "Bracelets",
+"sku": "BR-004",
+"name": "Twisted Chain Bracelet",
+"price": 890,
+"imgs": [
+"img/br-004-03462.jpg",
+"img/br-004-03470.jpg",
+"img/br-004-03466.jpg",
+"img/br-004-03460.jpg"
+],
+"desc": "A flat woven braid that catches the light from every angle, with an adjustable extender chain."
+},
+{
+"cat": "Bracelets",
+"sku": "BR-005",
+"name": "Floral Wrist Cuff",
+"price": 999,
+"imgs": [
+"img/br-005-03426.jpg",
+"img/br-005-03430.jpg",
+"img/br-005-03449.jpg",
+"img/br-005-03425.jpg"
+],
+"desc": "A ring of little gold daisies, each set with a sparkling crystal centre."
+},
+{
+"cat": "Bracelets",
+"sku": "BR-006",
+"name": "Sunlit Steel Cuff",
+"price": 890,
+"imgs": [
+"img/br-006-03394.jpg",
+"img/br-006-03389.jpg",
+"img/br-006-03403.jpg",
+"img/br-006-03396.jpg"
+],
+"desc": "A grooved hinged cuff with a row of six tiny crystals. It clicks shut securely."
+},
+{
+"cat": "Bracelets",
+"sku": "BR-007",
+"name": "Beaded Cuff",
+"price": 799,
+"imgs": [
+"img/br-007-03413.jpg",
+"img/br-007-03420.jpg",
+"img/br-007-03409.jpg",
+"img/br-007-03419.jpg"
+],
+"desc": "Polished gold beads curve into an open cuff with a sleek spike end."
+},
+{
+"cat": "Bracelets",
+"sku": "BR-008",
+"name": "Sleek Arc Cuff",
+"price": 799,
+"imgs": [
+"img/br-008-03372.jpg",
+"img/br-008-03356.jpg",
+"img/br-008-03363.jpg",
+"img/br-008-03359.jpg"
+],
+"desc": "An open wrap cuff with a soft white enamel inlay. Clean, modern and lovely stacked."
+},
+{
+"cat": "Bracelets",
+"sku": "BR-009",
+"name": "Open Clover Bracelet",
+"price": 890,
+"imgs": [
+"img/br-009-03510.jpg",
+"img/br-009-03512.jpg",
+"img/br-009-03508.jpg",
+"img/br-009-03502.jpg"
+],
+"desc": "Four open gold clovers linked on a fine chain, with an adjustable clasp."
+},
+{
+"cat": "Rings",
+"sku": "RG-01",
+"name": "Twin Pearls Ring",
+"price": 650,
+"imgs": [
+"img/rg-01-04044.jpg",
+"img/rg-01-04046.jpg",
+"img/rg-01-04039.jpg"
+],
+"desc": "Two little pearls sit on an open, crossing band."
+},
+{
+"cat": "Rings",
+"sku": "RG-02",
+"name": "Golden Orbit Ring",
+"price": 750,
+"imgs": [
+"img/rg-02-04086.jpg",
+"img/rg-02-04089.jpg",
+"img/rg-02-04094.jpg",
+"img/rg-02-04092.jpg"
+],
+"desc": "An open oval loop on a slim band. Clean, minimal and modern."
+},
+{
+"cat": "Rings",
+"sku": "RG-03",
+"name": "Moonstone Ring",
+"price": 650,
+"imgs": [
+"img/rg-03-03917.jpg",
+"img/rg-03-03914.jpg",
+"img/rg-03-03908.jpg",
+"img/rg-03-03921.jpg"
+],
+"desc": "A large pearly stone in a hand-textured gold frame, on a split band."
+},
+{
+"cat": "Rings",
+"sku": "RG-04",
+"name": "Trio Oval Pearls Ring",
+"price": 850,
+"imgs": [
+"img/rg-04-04065.jpg",
+"img/rg-04-04067.jpg",
+"img/rg-04-04060.jpg"
+],
+"desc": "Three oval pearls in gold cups, clustered together. Elegant for occasions."
+},
+{
+"cat": "Rings",
+"sku": "RG-05",
+"name": "Golden Orbs Ring",
+"price": 950,
+"imgs": [
+"img/rg-05-04032.jpg",
+"img/rg-05-04034.jpg",
+"img/rg-05-04021.jpg",
+"img/rg-05-04024.jpg"
+],
+"desc": "Three gold orbs of different sizes rise from slim stems. A playful statement ring."
+},
+{
+"cat": "Rings",
+"sku": "RG-06",
+"name": "Golden Swirl Ring",
+"price": 650,
+"imgs": [
+"img/rg-06-04000.jpg",
+"img/rg-06-03997.jpg",
+"img/rg-06-03995.jpg",
+"img/rg-06-03999.jpg"
+],
+"desc": "An open ring that curls into a soft golden swirl. Light, fluid and easy to wear."
+},
+{
+"cat": "Rings",
+"sku": "RG-07",
+"name": "Golden Knot Ring",
+"price": 750,
+"imgs": [
+"img/rg-07-04050.jpg",
+"img/rg-07-04055.jpg",
+"img/rg-07-04057.jpg"
+],
+"desc": "A smooth gold knot on a slim band. A small symbol of a lasting bond."
+},
+{
+"cat": "Rings",
+"sku": "RG-08",
+"name": "Droplet Pin Ring",
+"price": 850,
+"imgs": [
+"img/rg-08-04134.jpg",
+"img/rg-08-04128.jpg",
+"img/rg-08-04132.jpg"
+],
+"desc": "An open bypass ring with a smooth bar on one end and a round droplet on the other."
+},
+{
+"cat": "Rings",
+"sku": "RG-09",
+"name": "Bold Coil Ring",
+"price": 890,
+"imgs": [
+"img/rg-09-03964.jpg",
+"img/rg-09-03957.jpg",
+"img/rg-09-03967.jpg",
+"img/rg-09-03959.jpg"
+],
+"desc": "Many fine textured strands wrapped side by side into one bold open ring."
+},
+{
+"cat": "Rings",
+"sku": "RG-10",
+"name": "Lined Shield Ring",
+"price": 899,
+"imgs": [
+"img/rg-10-03973.jpg",
+"img/rg-10-03976.jpg",
+"img/rg-10-03969.jpg"
+],
+"desc": "A wide wrap ring with fine ribbed lines and a smooth shield edge. Bold and sculptural."
+},
+{
+"cat": "Rings",
+"sku": "RG-11",
+"name": "Panther Chain Ring",
+"price": 650,
+"imgs": [
+"img/rg-11-04122.jpg",
+"img/rg-11-04109.jpg",
+"img/rg-11-04119.jpg",
+"img/rg-11-04126.jpg"
+],
+"desc": "A woven band of linked gold, like a fine watch strap. Easy everyday stacking."
+},
+{
+"cat": "Rings",
+"sku": "RG-12",
+"name": "Black Gem Ring",
+"price": 690,
+"imgs": [
+"img/rg-12-03890.jpg",
+"img/rg-12-03887.jpg",
+"img/rg-12-03894.jpg",
+"img/rg-12-03901.jpg"
+],
+"desc": "A classic signet ring with a glossy black stone set in polished gold."
+},
+{
+"cat": "Earrings",
+"sku": "ER-01",
+"name": "Mini Petal Earrings",
+"price": 1190,
+"imgs": [
+"img/er-01-03706.jpg",
+"img/er-01-03714.jpg",
+"img/er-01-03709.jpg"
+],
+"desc": "Dainty matte gold flowers with a tiny pearl centre. Perfect for every day."
+},
+{
+"cat": "Earrings",
+"sku": "ER-02",
+"name": "Bold Petal Earrings",
+"price": 999,
+"imgs": [
+"img/er-02-03628.jpg",
+"img/er-02-03625.jpg",
+"img/er-02-03636.jpg"
+],
+"desc": "Layered gold petals curled around a pearl centre. A bold flower stud."
+},
+{
+"cat": "Earrings",
+"sku": "ER-03",
+"name": "Stripe Blossom Earrings",
+"price": 960,
+"imgs": [
+"img/er-03-03586.jpg",
+"img/er-03-03600.jpg",
+"img/er-03-03594.jpg",
+"img/er-03-03583.jpg"
+],
+"desc": "Large daisy studs with finely striped gold petals and a sparkling crystal centre."
+},
+{
+"cat": "Earrings",
+"sku": "ER-04",
+"name": "Ruffled Flower Earrings",
+"price": 920,
+"imgs": [
+"img/er-04-03667.jpg",
+"img/er-04-03662.jpg",
+"img/er-04-03678.jpg",
+"img/er-04-03670.jpg"
+],
+"desc": "Open filigree flowers with soft ruffled petals and a pearl at the heart."
+},
+{
+"cat": "Earrings",
+"sku": "ER-05",
+"name": "Pearl Drop Earrings",
+"price": 980,
+"imgs": [
+"img/er-05-03801.jpg",
+"img/er-05-03824.jpg",
+"img/er-05-03795.jpg"
+],
+"desc": "A gold leaf stud with two long chains ending in pearls. Light and graceful."
+},
+{
+"cat": "Earrings",
+"sku": "ER-06",
+"name": "Cross Drop Earrings",
+"price": 790,
+"imgs": [
+"img/er-06-03572.jpg",
+"img/er-06-03579.jpg",
+"img/er-06-03552.jpg",
+"img/er-06-03568.jpg"
+],
+"desc": "Little gold cross studs with two pearls swinging on fine chains."
+},
+{
+"cat": "Earrings",
+"sku": "ER-08",
+"name": "Double Chain Bow Earrings",
+"price": 799,
+"imgs": [
+"img/er-08-03785.jpg",
+"img/er-08-03779.jpg",
+"img/er-08-03787.jpg"
+],
+"desc": "Gold butterfly studs with crystal dots and delicate chains that drape below."
+},
+{
+"cat": "Earrings",
+"sku": "ER-09",
+"name": "Sleek Gold Bar Earrings",
+"price": 990,
+"imgs": [
+"img/er-09-03772.jpg",
+"img/er-09-03754.jpg",
+"img/er-09-03766.jpg",
+"img/er-09-03747.jpg"
+],
+"desc": "Stepped gold bars of different lengths for a sleek, modern line."
+},
+{
+"cat": "Earrings",
+"sku": "ER-10",
+"name": "Gold Coins Earrings",
+"price": 999,
+"imgs": [
+"img/er-10-03693.jpg",
+"img/er-10-03688.jpg",
+"img/er-10-03692.jpg",
+"img/er-10-03680.jpg"
+],
+"desc": "Three brushed gold coins overlapping in a cluster. Modern and easy to wear."
+},
+{
+"cat": "Earrings",
+"sku": "ER-11",
+"name": "Delta Stud Earrings",
+"price": 999,
+"imgs": [
+"img/er-11-03728.jpg",
+"img/er-11-03736.jpg",
+"img/er-11-03724.jpg",
+"img/er-11-03739.jpg"
+],
+"desc": "Smooth triangle studs with a raised gold border. Clean and geometric."
+},
+{
+"cat": "Earrings",
+"sku": "ER-12",
+"name": "Golden Cushion Studs",
+"price": 890,
+"imgs": [
+"img/er-12-03515.jpg",
+"img/er-12-03518.jpg"
+],
+"desc": "Smooth, puffed gold squares with soft rounded corners. A bold, polished statement."
+},
+{
+"cat": "Earrings",
+"sku": "ER-13",
+"name": "Framed Pearl Studs",
+"price": 790,
+"imgs": [
+"img/er-13-03622.jpg",
+"img/er-13-03615.jpg",
+"img/er-13-03620.jpg"
+],
+"desc": "A round pearl set in a fine textured gold frame. Classic and elegant."
+},
+{
+"cat": "Earrings",
+"sku": "ER-14",
+"name": "Pearl Disc Studs",
+"price": 799,
+"imgs": [
+"img/er-14-03649.jpg",
+"img/er-14-03647.jpg",
+"img/er-14-03637.jpg",
+"img/er-14-03651.jpg"
+],
+"desc": "A brushed gold disc with a small pearl sitting on top. Simple and modern."
+},
+{
+"cat": "Earrings",
+"sku": "ER-15",
+"name": "Triple Wave Hoops",
+"price": 999,
+"imgs": [
+"img/er-15-03848.jpg",
+"img/er-15-03847.jpg",
+"img/er-15-03833.jpg",
+"img/er-15-03837.jpg"
+],
+"desc": "Three fine gold hoops joined together into one wavy oval hoop."
+},
+{
+"cat": "Earrings",
+"sku": "ER-16",
+"name": "Wavy Disc Pearl Earrings",
+"price": 999,
+"imgs": [
+"img/er-16-03869.jpg",
+"img/er-16-03867.jpg",
+"img/er-16-03855.jpg",
+"img/er-16-03860.jpg"
+],
+"desc": "A gently curved gold disc above a large round pearl."
+},
+{
+"cat": "Pendants",
+"sku": "PD-01",
+"name": "Floral Pendant",
+"price": 999,
+"imgs": [
+"img/pd-01-03283.jpg",
+"img/pd-01-03281.jpg",
+"img/pd-01-03278.jpg",
+"img/pd-01-03276.jpg"
+],
+"desc": "A delicate chain set with a row of little gold daisies."
+},
+{
+"cat": "Pendants",
+"sku": "PD-02",
+"name": "Circle Pendant",
+"price": 600,
+"imgs": [
+"img/pd-02-03088.jpg",
+"img/pd-02-03109.jpg",
+"img/pd-02-03108.jpg",
+"img/pd-02-03113.jpg"
+],
+"desc": "A black disc framed in gold with Roman numerals around the edge, like a tiny watch face."
+},
+{
+"cat": "Pendants",
+"sku": "PD-03",
+"name": "Butterfly Pendant",
+"price": 750,
+"imgs": [
+"img/pd-03-03287.jpg",
+"img/pd-03-03303.jpg",
+"img/pd-03-03301.jpg",
+"img/pd-03-03295.jpg"
+],
+"desc": "A square of mother of pearl framed in gold, with a small gold butterfly resting on top."
+},
+{
+"cat": "Pendants",
+"sku": "PD-04",
+"name": "Heart Pendant",
+"price": 750,
+"imgs": [
+"img/pd-04-03175.jpg",
+"img/pd-04-03179.jpg",
+"img/pd-04-03190.jpg",
+"img/pd-04-03193.jpg"
+],
+"desc": "A soft mother of pearl heart in a thin gold frame, on a fine chain."
+},
+{
+"cat": "Pendants",
+"sku": "PD-05",
+"name": "Cross Pendant",
+"price": 999,
+"imgs": [
+"img/pd-05-03242.jpg",
+"img/pd-05-03253.jpg",
+"img/pd-05-03251.jpg",
+"img/pd-05-03247.jpg"
+],
+"desc": "A black four-leaf clover edged with tiny crystals, on a fine gold chain."
+},
+{
+"cat": "Pendants",
+"sku": "PD-06",
+"name": "Pearl Pendant",
+"price": 1190,
+"imgs": [
+"img/pd-06-03141.jpg",
+"img/pd-06-03142.jpg",
+"img/pd-06-03143.jpg",
+"img/pd-06-03147.jpg"
+],
+"desc": "A wavy gold disc with a single pearl, on a smooth snake chain."
+},
+{
+"cat": "Pendants",
+"sku": "PD-07",
+"name": "Bars Pendant",
+"price": 1150,
+"imgs": [
+"img/pd-07-03324.jpg",
+"img/pd-07-03330.jpg",
+"img/pd-07-03335.jpg",
+"img/pd-07-03334.jpg"
+],
+"desc": "A row of slim gold bars that hang like a fringe and catch the light."
+},
+{
+"cat": "Pendants",
+"sku": "PD-08",
+"name": "Bead Pendant",
+"price": 1190,
+"imgs": [
+"img/pd-08-03166.jpg",
+"img/pd-08-03171.jpg",
+"img/pd-08-03163.jpg"
+],
+"desc": "Small gold cube beads strung along a fine chain for a clean, modern look."
+},
+{
+"cat": "Pendants",
+"sku": "PD-10",
+"name": "Double Circles Pendant",
+"price": 990,
+"imgs": [
+"img/pd-10-03201.jpg",
+"img/pd-10-03217.jpg",
+"img/pd-10-03218.jpg",
+"img/pd-10-03209.jpg"
+],
+"desc": "Two linked rings, one with Roman numerals and one set with crystals."
+},
+{
+"cat": "Pendants",
+"sku": "PD-11",
+"name": "Roman Pearl Disc Pendant",
+"price": 899,
+"imgs": [
+"img/pd-11-03133.jpg",
+"img/pd-11-03131.jpg",
+"img/pd-11-03130.jpg",
+"img/pd-11-03118.jpg"
+],
+"desc": "A mother of pearl disc in a gold frame with Roman numerals around the edge."
+},
+{
+"cat": "Pendants",
+"sku": "PD-12",
+"name": "Crystal Barrel Pendant",
+"price": 999,
+"imgs": [
+"img/pd-12-03240.jpg",
+"img/pd-12-03239.jpg",
+"img/pd-12-03233.jpg",
+"img/pd-12-03236.jpg"
+],
+"desc": "A small gold barrel wrapped in rows of sparkling crystals, on a fine chain."
+},
+{
+"cat": "Jewellery Boxes",
+"sku": "BX-01",
+"name": "Jewellery Box (Rust)",
+"price": 1190,
+"imgs": [
+"img/bx-01-04196.jpg",
+"img/bx-01-04163.jpg",
+"img/bx-01-04165.jpg",
+"img/bx-01-04202.jpg"
+],
+"desc": "A square rust leather-look travel box with a gold clasp, a little mirror, ring rolls and compartments for earrings."
+},
+{
+"cat": "Jewellery Boxes",
+"sku": "BX-02",
+"name": "Jewellery Box (Grey)",
+"price": 1190,
+"imgs": [
+"img/bx-02-04191.jpg",
+"img/bx-02-04152.jpg",
+"img/bx-02-04162.jpg",
+"img/bx-02-04156.jpg"
+],
+"desc": "A square soft grey leather-look travel box with a gold clasp, a little mirror and ring rolls inside."
+},
+{
+"cat": "Jewellery Boxes",
+"sku": "BX-03",
+"name": "Jewellery Box (White)",
+"price": 990,
+"imgs": [
+"img/bx-03-04181.jpg",
+"img/bx-03-04173.jpg",
+"img/bx-03-04170.jpg",
+"img/bx-03-04172.jpg"
+],
+"desc": "A slim white leather-look box with a silver clasp, necklace hooks in the lid, ring rolls and a tray for earrings and bracelets."
+},
+{
+"cat": "Jewellery Boxes",
+"sku": "BX-04",
+"name": "Peach Drawer Box",
+"price": 550,
+"imgs": [
+"img/bx-04-04177.jpg",
+"img/bx-04-04178.jpg",
+"img/bx-04-04176.jpg",
+"img/bx-04-04179.jpg"
+],
+"desc": "A small peach box with a pull-out drawer and a soft grey cushion that holds a ring or a pair of earrings."
+}
+];
+const CATS=["All","Bracelets","Rings","Earrings","Pendants","Jewellery Boxes"];
+let current="All",over={},editing=false,db=null;
+try{const s=localStorage.getItem("nishaani-cat");if(CATS.includes(s))current=s}catch(e){}
+const nav=document.getElementById("filters"),grid=document.getElementById("grid"),empty=document.getElementById("empty");
+const editBtn=document.getElementById("editBtn"),editNote=document.getElementById("editNote"),toast=document.getElementById("toast");
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function view(i){const o=over[i.sku]||{};return {...i,name:o.name??i.name,desc:o.desc??i.desc,price:("price" in o)?o.price:i.price}}
+function priceText(p){return p?"Rs. "+Number(p).toLocaleString("en-PK"):"Rs. —"}
+function render(){
+  nav.innerHTML="";
+  CATS.forEach(c=>{
+    const n=c==="All"?ITEMS.length:ITEMS.filter(i=>i.cat===c).length;
+    const b=document.createElement("button");b.type="button";b.id="cat-"+c.toLowerCase().replace(" ","-");
+    b.setAttribute("aria-pressed",c===current);b.innerHTML=c+(n?`<small>${n}</small>`:"");
+    b.onclick=()=>{current=c;try{localStorage.setItem("nishaani-cat",c)}catch(e){}render()};
+    nav.appendChild(b);
+  });
+  const list=ITEMS.filter(i=>current==="All"||i.cat===current).map(view);
+  grid.innerHTML=list.map(i=>{const n=esc(i.name);return `<article class="card">
+    <figure>${i.imgs.length?`<div class="slides" tabindex="0" aria-label="${n} photos">${i.imgs.map((s,k)=>`<img src="${s}" alt="${n}, photo ${k+1}" loading="lazy">`).join("")}</div>${i.imgs.length>1?`<span class="count">1 / ${i.imgs.length}</span><div class="pips">${i.imgs.map((s,k)=>`<button type="button" aria-label="Show photo ${k+1}" aria-current="${k===0}"></button>`).join("")}</div>`:""}`:`<div class="ph"><img src="img/emblem.png" alt=""><span>photo coming soon</span></div>`}</figure>
+    <div class="info"><span class="cat">${i.cat}</span>
+    ${editing?`<h2 class="ed" contenteditable="true" spellcheck="true" data-sku="${i.sku}" data-f="name" aria-label="Name">${n}</h2>
+    <p class="ed" contenteditable="true" data-sku="${i.sku}" data-f="desc" data-ph="Add a description" aria-label="Description">${esc(i.desc)}</p>
+    <div class="price"><label class="pe">Rs. <input type="number" inputmode="numeric" min="0" step="10" id="price-${i.sku}" data-sku="${i.sku}" data-f="price" value="${i.price??""}" placeholder="price"></label><span class="sku">${i.sku}</span></div>`
+    :`<h2>${n}</h2><p>${esc(i.desc)}</p>
+    <div class="price"><b>${priceText(i.price)}</b><span class="sku">${i.sku}</span></div>
+    <div class="acts"><button type="button" class="dm" data-sku="${i.sku}" aria-label="Order ${n} with the order form"><svg class="plane" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 2.5 2.8 9.6c-.8.3-.8 1.4 0 1.7l6.9 2.6 2.6 6.9c.3.8 1.4.8 1.7 0L21.5 2.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.7 13.9 21.5 2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><b>Make it yours</b></button><a class="dmlink" href="https://ig.me/m/nishaani_jewellery" target="_blank" rel="noopener" data-sku="${i.sku}" aria-label="Message us about ${n} on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5c-1.5 0-2.9-.3-4.1-.9L3.5 21l1.3-4C4 15.7 3.5 14.2 3.5 12.6 3.5 8 7.3 4.5 12 4.5s8.5 3.5 8.5 8-3.8 8-8.5 8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 15.6s-3.2-1.9-3.2-4c0-1 .8-1.7 1.7-1.7.6 0 1.2.4 1.5.9.3-.5.9-.9 1.5-.9.9 0 1.7.7 1.7 1.7 0 2.1-3.2 4-3.2 4Z" fill="currentColor"/></svg><b>DM</b></a></div>`}</div>
+  </article>`}).join("");
+  grid.querySelectorAll("figure").forEach(f=>{
+    const s=f.querySelector(".slides"),pips=[...f.querySelectorAll(".pips button")],c=f.querySelector(".count");
+    if(!pips.length)return;
+    pips.forEach((p,k)=>p.onclick=()=>s.scrollTo({left:k*s.clientWidth}));
+    s.addEventListener("scroll",()=>{const k=Math.round(s.scrollLeft/s.clientWidth);pips.forEach((p,j)=>p.setAttribute("aria-current",j===k));c.textContent=`${k+1} / ${pips.length}`},{passive:true});
+  });
+  grid.hidden=!list.length;empty.hidden=!!list.length;
+  document.getElementById("emptyText").textContent=`Our ${current.toLowerCase()} are being photographed. Check back soon.`;
+}
+let toastT;function say(t){toast.textContent=t;toast.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>toast.hidden=true,2200)}
+const queue={};
+function save(sku,field,val){
+  const cur=view(ITEMS.find(i=>i.sku===sku));if(cur[field]===val)return;
+  over[sku]={...(over[sku]||{}),[field]:val};
+  const body={...over[sku]};
+  queue[sku]=(queue[sku]||Promise.resolve()).then(()=>db.doc("items/"+sku).set(body)).then(()=>say("Saved"),()=>say("Couldn't save. Check your connection and try again."));
+}
+grid.addEventListener("focusout",e=>{
+  const el=e.target;if(!editing||!el.dataset||!el.dataset.f)return;
+  const f=el.dataset.f;let v;
+  if(f==="price"){v=el.value.trim()===""?null:Math.max(0,Math.round(Number(el.value)));if(Number.isNaN(v))return}
+  else v=el.innerText.replace(/\s+/g," ").trim();
+  if(f==="name"&&!v){el.textContent=view(ITEMS.find(i=>i.sku===el.dataset.sku)).name;return}
+  save(el.dataset.sku,f,v);
+});
+function copyText(t){try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).catch(()=>fallbackCopy(t));return}}catch(e){}fallbackCopy(t)}
+function fallbackCopy(t){try{const a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();document.execCommand("copy");a.remove()}catch(e){}}
+const dlg=document.getElementById("orderDlg"),oForm=document.getElementById("orderForm");let oItem=null;const DELIVERY=250;
+function oQty(){return Math.max(1,parseInt(oForm.qty.value)||1)}
+function updSum(){const q=oQty(),el=document.getElementById("oSum");
+  if(oItem&&oItem.price!=null){const sub=oItem.price*q;el.innerHTML=`<div><span>${q} × ${priceText(oItem.price)}</span><span>${priceText(sub)}</span></div><div><span>Delivery charges</span><span>${priceText(DELIVERY)}</span></div><div class="tot"><span>Total</span><span>${priceText(sub+DELIVERY)}</span></div>`}
+  else el.innerHTML=`<div><span>Delivery charges</span><span>${priceText(DELIVERY)}</span></div>`}
+grid.addEventListener("click",e=>{const l=e.target.closest("a.dmlink");if(l){const it=view(ITEMS.find(x=>x.sku===l.dataset.sku));copyText(`Hi Nishaani! I'd like to order the ${it.name} (${it.sku})${it.price!=null?", "+priceText(it.price):""}. Is it available?`);say("Message copied. Paste it in the Instagram chat.");return}
+  const a=e.target.closest("button.dm");if(!a)return;
+  oItem=view(ITEMS.find(x=>x.sku===a.dataset.sku));
+  if(!dlg.showModal){const msg=`Hi Nishaani! I'd like to order the ${oItem.name} (${oItem.sku}). Is it available?`;copyText(msg);say("Message copied. Paste it in the Instagram chat.");return}
+  e.preventDefault();
+  document.getElementById("oName").textContent=oItem.name;
+  document.getElementById("oPrice").textContent=(oItem.price!=null?priceText(oItem.price)+" · ":"")+oItem.sku;
+  const im=document.getElementById("oImg");if(oItem.imgs.length){im.src=oItem.imgs[0];im.hidden=false}else im.hidden=true;
+  document.getElementById("oFields").hidden=false;document.getElementById("oDone").hidden=true;document.getElementById("oErr").hidden=true;
+  oForm.querySelectorAll("[aria-invalid]").forEach(x=>x.removeAttribute("aria-invalid"));
+  oForm.qty.value=1;oForm.note.value="";oForm.gift.checked=false;updSum();
+  dlg.showModal();setTimeout(()=>oForm.name.focus(),30)});
+oForm.qty.addEventListener("input",updSum);
+document.getElementById("oClose").onclick=()=>dlg.close();
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+oForm.addEventListener("submit",e=>{e.preventDefault();
+  const f=oForm,req=[f.name,f.phone,f.city,f.address];let ok=true;
+  req.forEach(x=>{const bad=!x.value.trim();x.toggleAttribute("aria-invalid",bad);if(bad){x.setAttribute("aria-invalid","true");ok=false}});
+  if(!ok){document.getElementById("oErr").hidden=false;req.find(x=>!x.value.trim()).focus();return}
+  const q=Math.max(1,parseInt(f.qty.value)||1);
+  const lines=["Hi Nishaani! I'd like to place an order 💛","",
+    `Piece: ${oItem.name} (${oItem.sku})`,
+    oItem.price!=null?`Price: ${priceText(oItem.price)}${q>1?` × ${q}`:""}`:null,
+    `Quantity: ${q}`,
+    `Delivery: ${priceText(DELIVERY)}`,
+    oItem.price!=null?`Total: ${priceText(oItem.price*q+DELIVERY)}`:null,"",
+    `Name: ${f.name.value.trim()}`,`Phone: ${f.phone.value.trim()}`,`City: ${f.city.value.trim()}`,
+    `Address: ${f.address.value.trim()}`,
+    f.gift.checked?"This is a gift 🎁":null,
+    f.note.value.trim()?`Note: ${f.note.value.trim()}`:null].filter(x=>x!==null);
+  const msg=lines.join("\n");
+  copyText(msg);window.open("https://ig.me/m/nishaani_jewellery","_blank","noopener");
+  document.getElementById("oMsg").textContent=msg;
+  document.getElementById("oFields").hidden=true;document.getElementById("oDone").hidden=false;
+  try{localStorage.setItem("nishaani-buyer",JSON.stringify({name:f.name.value,phone:f.phone.value,city:f.city.value,address:f.address.value}))}catch(err){}
+});
+document.getElementById("oCopy").onclick=()=>{copyText(document.getElementById("oMsg").textContent);say("Copied again.")};
+try{const s=JSON.parse(localStorage.getItem("nishaani-buyer")||"null");if(s)["name","phone","city","address"].forEach(k=>{if(s[k])oForm[k].value=s[k]})}catch(err){}
+grid.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.dataset&&(e.target.dataset.f==="name"||e.target.dataset.f==="price")){e.preventDefault();e.target.blur()}});
+editBtn.onclick=()=>{editing=!editing;editBtn.textContent=editing?"Done editing":"Edit catalogue";editBtn.setAttribute("aria-pressed",editing);editNote.hidden=!editing;render()};
+render();
+(async()=>{
+  if(!window.claude||!window.claude.use)return;
+  const [d,u]=await Promise.all([claude.use("db"),claude.use("user")]);
+  if(!d)return;db=d;
+  db.collection("items").onSnapshot(s=>{const o={};s.docs.forEach(x=>{if(x.exists)o[x.id]=x.data()});over=o;if(!editing)render()},()=>{});
+})();
+</script>
+</body></html>
