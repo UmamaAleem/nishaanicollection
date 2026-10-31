@@ -92,7 +92,7 @@ nav small{opacity:.7;margin-left:6px;letter-spacing:0}
 .opiece{display:flex;gap:12px;align-items:center;padding:10px;border:1px solid var(--rule);border-radius:3px;background:var(--cream)}
 .opiece img{width:64px;height:48px;object-fit:cover;border-radius:2px;flex:none}
 .opiece b{display:block;font-family:var(--display);font-size:19px;line-height:1.1}.opiece span{font-size:14px;color:var(--muted)}
-#oFields{display:flex;flex-direction:column;gap:10px}
+#oFields,#oDone{display:flex;flex-direction:column;gap:10px}#oDone{gap:14px}
 .odlg label{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--ink)}
 .odlg label small{color:var(--muted);font-size:12.5px}
 .odlg input:not([type=checkbox]),.odlg textarea{font:16px var(--body);color:var(--ink);background:#fff;border:1px solid var(--rule);border-radius:3px;padding:9px 11px;min-height:44px;width:100%;box-sizing:border-box}
@@ -108,7 +108,16 @@ nav small{opacity:.7;margin-left:6px;letter-spacing:0}
 .oerr{margin:0;color:#b3261e;font-size:14px}
 @media (max-width:360px){.dm .plane{display:none}.dm{padding:0 10px}.dmlink{padding:0 12px}.dmlink b{display:none}}
 .osend{width:100%;border:0;cursor:pointer;text-align:left;font:inherit}
-.odone{margin:0;font-size:16px}
+.osteps,.odo{list-style:none;margin:0;padding:0;display:flex;gap:6px}
+.osteps li{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;font-size:13px;line-height:1.25;color:var(--muted)}
+.osteps li b,.odo b{color:var(--maroon)}
+.osteps i,.odo i{font-style:normal;width:24px;height:24px;flex:0 0 24px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;font:600 13px var(--body);color:var(--maroon)}
+.ocheck{display:flex;gap:12px;align-items:center;background:var(--cream);border:1px solid var(--gold);border-radius:4px;padding:12px 14px}
+.ocheck>span{width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:var(--gold);color:var(--maroon);display:grid;place-items:center;font-size:20px;font-weight:700}
+.ocheck b{display:block;font-family:var(--display);font-size:22px;line-height:1.1;color:var(--ink)}.ocheck small{font-size:14px;color:var(--muted)}
+.odo{flex-direction:column;gap:10px;font-size:16px}.odo li{display:flex;gap:10px;align-items:center}
+.obtn.big{min-height:52px;font-size:18px;flex:none}
+.opeek summary{cursor:pointer;font-size:14px;color:var(--muted);padding:4px 0}.opeek .omsg{margin:6px 0 8px}.opeek .obtn{width:100%}
 .omsg{margin:0;white-space:pre-wrap;font:14px/1.5 var(--body);background:var(--cream);border:1px dashed var(--gold);padding:10px 12px;border-radius:3px;max-height:180px;overflow:auto}
 .obtns{display:flex;gap:10px}
 .obtn{flex:1;min-height:44px;display:flex;align-items:center;justify-content:center;border:1px solid var(--maroon);border-radius:999px;background:none;color:var(--maroon);font:600 16px var(--body);text-decoration:none;cursor:pointer}
@@ -184,13 +193,19 @@ p.ed:empty::before{content:attr(data-ph);color:#b9a08e;font-style:italic}
       <label class="ogift"><input name="gift" type="checkbox"> It's a gift</label></div>
       <label>Note <small>(ring size, gift message, colour)</small><textarea name="note" rows="2"></textarea></label>
       <div class="osum" id="oSum" aria-live="polite"></div>
+      <ol class="osteps" aria-label="How your order reaches us"><li><i>1</i><span>We <b>copy</b> your order</span></li><li><i>2</i><span>You <b>open</b> our DM</span></li><li><i>3</i><span><b>Paste</b> &amp; send ♡</span></li></ol>
       <p class="oerr" id="oErr" role="alert" hidden>Please add your name, phone, city and delivery address.</p>
-      <button type="submit" class="dm osend"><svg class="plane" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 2.5 2.8 9.6c-.8.3-.8 1.4 0 1.7l6.9 2.6 2.6 6.9c.3.8 1.4.8 1.7 0L21.5 2.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.7 13.9 21.5 2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="dmt"><b>Send on Instagram</b><small>opens our DMs</small></span></button>
+      <button type="submit" class="dm osend"><svg class="plane" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 2.5 2.8 9.6c-.8.3-.8 1.4 0 1.7l6.9 2.6 2.6 6.9c.3.8 1.4.8 1.7 0L21.5 2.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.7 13.9 21.5 2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="dmt"><b>Copy my order</b><small>next: paste it in our DM</small></span></button>
     </div>
     <div id="oDone" hidden>
-      <p class="odone">Your order message is copied. In the Instagram chat that just opened, <b>paste it and press send</b>. We'll reply soon.</p>
-      <pre id="oMsg" class="omsg"></pre>
-      <div class="obtns"><button type="button" id="oCopy" class="obtn">Copy again</button><a id="oOpen" class="obtn solid" href="https://ig.me/m/nishaani_jewellery" target="_blank" rel="noopener">Open Instagram</a></div>
+      <div class="ocheck"><span aria-hidden="true">✓</span><div><b>Your order is copied!</b><small>Just one more step to make it yours.</small></div></div>
+      <ol class="odo">
+        <li><i>1</i><span>Tap <b>Open our DM</b> below</span></li>
+        <li><i>2</i><span>Press &amp; hold the message box, then tap <b>Paste</b></span></li>
+        <li><i>3</i><span>Hit <b>Send</b>. That's it, we'll confirm soon ♡</span></li>
+      </ol>
+      <a id="oOpen" class="obtn solid big" href="https://ig.me/m/nishaani_jewellery" target="_blank" rel="noopener">Open our DM &amp; paste ✈</a>
+      <details class="opeek"><summary>See what's copied</summary><pre id="oMsg" class="omsg"></pre><button type="button" id="oCopy" class="obtn">Copy again</button></details>
     </div>
   </form>
 </dialog>
@@ -942,7 +957,7 @@ oForm.addEventListener("submit",e=>{e.preventDefault();
     f.gift.checked?"This is a gift 🎁":null,
     f.note.value.trim()?`Note: ${f.note.value.trim()}`:null].filter(x=>x!==null);
   const msg=lines.join("\n");
-  copyText(msg);window.open("https://ig.me/m/nishaani_jewellery","_blank","noopener");
+  copyText(msg);
   document.getElementById("oMsg").textContent=msg;
   document.getElementById("oFields").hidden=true;document.getElementById("oDone").hidden=false;
   try{localStorage.setItem("nishaani-buyer",JSON.stringify({name:f.name.value,phone:f.phone.value,city:f.city.value,address:f.address.value}))}catch(err){}
