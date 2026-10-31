@@ -116,6 +116,7 @@ nav small{opacity:.7;margin-left:6px;letter-spacing:0}
 .ocheck>span{width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:var(--gold);color:var(--maroon);display:grid;place-items:center;font-size:20px;font-weight:700}
 .ocheck b{display:block;font-family:var(--display);font-size:22px;line-height:1.1;color:var(--ink)}.ocheck small{font-size:14px;color:var(--muted)}
 .odo{flex-direction:column;gap:10px;font-size:16px}.odo li{display:flex;gap:10px;align-items:center}
+.odo-ig{display:none!important}.inapp .odo-ig{display:flex!important}.inapp .odo-web,.inapp #oOpen{display:none!important}
 .obtn.big{min-height:52px;font-size:18px;flex:none}
 .opeek summary{cursor:pointer;font-size:14px;color:var(--muted);padding:4px 0}.opeek .omsg{margin:6px 0 8px}.opeek .obtn{width:100%}
 .omsg{margin:0;white-space:pre-wrap;font:14px/1.5 var(--body);background:var(--cream);border:1px dashed var(--gold);padding:10px 12px;border-radius:3px;max-height:180px;overflow:auto}
@@ -199,7 +200,12 @@ p.ed:empty::before{content:attr(data-ph);color:#b9a08e;font-style:italic}
     </div>
     <div id="oDone" hidden>
       <div class="ocheck"><span aria-hidden="true">✓</span><div><b>Your order is copied!</b><small>Just one more step to make it yours.</small></div></div>
-      <ol class="odo">
+      <ol class="odo odo-ig">
+        <li><i>1</i><span>Tap <b>✕</b> at the top left to close this page</span></li>
+        <li><i>2</i><span>On our profile, tap <b>Message</b></span></li>
+        <li><i>3</i><span>Press &amp; hold, tap <b>Paste</b>, then <b>Send</b> ♡</span></li>
+      </ol>
+      <ol class="odo odo-web">
         <li><i>1</i><span>Tap <b>Open our DM</b> below</span></li>
         <li><i>2</i><span>Press &amp; hold the message box, then tap <b>Paste</b></span></li>
         <li><i>3</i><span>Hit <b>Send</b>. That's it, we'll confirm soon ♡</span></li>
@@ -903,7 +909,8 @@ function render(){
   grid.hidden=!list.length;empty.hidden=!!list.length;
   document.getElementById("emptyText").textContent=`Our ${current.toLowerCase()} are being photographed. Check back soon.`;
 }
-let toastT;function say(t){toast.textContent=t;toast.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>toast.hidden=true,2200)}
+let toastT;function say(t,ms){toast.textContent=t;toast.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>toast.hidden=true,ms||2200)}
+const INAPP=/Instagram|FBAN|FBAV/i.test(navigator.userAgent);if(INAPP)document.documentElement.classList.add("inapp");
 const queue={};
 function save(sku,field,val){
   const cur=view(ITEMS.find(i=>i.sku===sku));if(cur[field]===val)return;
@@ -926,7 +933,7 @@ function oQty(){return Math.max(1,parseInt(oForm.qty.value)||1)}
 function updSum(){const q=oQty(),el=document.getElementById("oSum");
   if(oItem&&oItem.price!=null){const sub=oItem.price*q;el.innerHTML=`<div><span>${q} × ${priceText(oItem.price)}</span><span>${priceText(sub)}</span></div><div><span>Delivery charges</span><span>${priceText(DELIVERY)}</span></div><div class="tot"><span>Total</span><span>${priceText(sub+DELIVERY)}</span></div>`}
   else el.innerHTML=`<div><span>Delivery charges</span><span>${priceText(DELIVERY)}</span></div>`}
-grid.addEventListener("click",e=>{const l=e.target.closest("a.dmlink");if(l){const it=view(ITEMS.find(x=>x.sku===l.dataset.sku));copyText(`Hi Nishaani! I'd like to order the ${it.name} (${it.sku})${it.price!=null?", "+priceText(it.price):""}. Is it available?`);say("Message copied. Paste it in the Instagram chat.");return}
+grid.addEventListener("click",e=>{const l=e.target.closest("a.dmlink");if(l){const it=view(ITEMS.find(x=>x.sku===l.dataset.sku));copyText(`Hi Nishaani! I'd like to order the ${it.name} (${it.sku})${it.price!=null?", "+priceText(it.price):""}. Is it available?`);if(INAPP){e.preventDefault();say("Message copied ♡ Tap ✕ at the top, then tap Message on our profile and paste.",6000)}else say("Message copied. Paste it in the Instagram chat.");return}
   const a=e.target.closest("button.dm");if(!a)return;
   oItem=view(ITEMS.find(x=>x.sku===a.dataset.sku));
   if(!dlg.showModal){const msg=`Hi Nishaani! I'd like to order the ${oItem.name} (${oItem.sku}). Is it available?`;copyText(msg);say("Message copied. Paste it in the Instagram chat.");return}
