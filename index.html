@@ -948,6 +948,12 @@ grid.addEventListener("click",e=>{const l=e.target.closest("a.dmlink");if(l){con
 oForm.qty.addEventListener("input",updSum);
 document.getElementById("oClose").onclick=()=>dlg.close();
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+function resetOrder(){document.getElementById("oFields").hidden=false;document.getElementById("oDone").hidden=true;document.getElementById("oErr").hidden=true;const d=dlg.querySelector(".opeek");if(d)d.open=false}
+dlg.addEventListener("close",resetOrder);
+const doneShowing=()=>dlg.open&&!document.getElementById("oDone").hidden;
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&doneShowing()){dlg.close();resetOrder()}});
+window.addEventListener("pagehide",()=>{if(doneShowing()){dlg.close();resetOrder()}});
+window.addEventListener("pageshow",e=>{if(e.persisted&&doneShowing()){dlg.close();resetOrder()}});
 oForm.addEventListener("submit",e=>{e.preventDefault();
   const f=oForm,req=[f.name,f.phone,f.city,f.address];let ok=true;
   req.forEach(x=>{const bad=!x.value.trim();x.toggleAttribute("aria-invalid",bad);if(bad){x.setAttribute("aria-invalid","true");ok=false}});
