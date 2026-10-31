@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>*,*::before,*::after{box-sizing:border-box}body{margin:0}</style></head><body><title>Nishaani Collection</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&family=Noto+Nastaliq+Urdu:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&display=swap">
 <style>
 /* Layout: Nishaani's brand card as a page. A maroon ground inside a double gold frame, the fingerprint seal and Urdu wordmark on top, cream keepsake cards below. Single brand look in every theme. */
 :root{
@@ -868,7 +868,7 @@ function render(){
   });
   const list=ITEMS.filter(i=>current==="All"||i.cat===current).map(view);
   grid.innerHTML=list.map(i=>{const n=esc(i.name);return `<article class="card">
-    <figure>${i.imgs.length?`<div class="slides" tabindex="0" aria-label="${n} photos">${i.imgs.map((s,k)=>`<img src="${s}" alt="${n}, photo ${k+1}" loading="lazy">`).join("")}</div>${i.imgs.length>1?`<span class="count">1 / ${i.imgs.length}</span><div class="pips">${i.imgs.map((s,k)=>`<button type="button" aria-label="Show photo ${k+1}" aria-current="${k===0}"></button>`).join("")}</div>`:""}`:`<div class="ph"><img src="img/emblem.png" alt=""><span>photo coming soon</span></div>`}</figure>
+    <figure>${i.imgs.length?`<div class="slides" tabindex="0" aria-label="${n} photos">${i.imgs.map((s,k)=>k?`<img data-src="${s}" alt="${n}, photo ${k+1}" decoding="async">`:`<img src="${s}" alt="${n}, photo ${k+1}" loading="lazy" decoding="async" width="720" height="540">`).join("")}</div>${i.imgs.length>1?`<span class="count">1 / ${i.imgs.length}</span><div class="pips">${i.imgs.map((s,k)=>`<button type="button" aria-label="Show photo ${k+1}" aria-current="${k===0}"></button>`).join("")}</div>`:""}`:`<div class="ph"><img src="img/emblem.png" alt=""><span>photo coming soon</span></div>`}</figure>
     <div class="info"><span class="cat">${i.cat}</span>
     ${editing?`<h2 class="ed" contenteditable="true" spellcheck="true" data-sku="${i.sku}" data-f="name" aria-label="Name">${n}</h2>
     <p class="ed" contenteditable="true" data-sku="${i.sku}" data-f="desc" data-ph="Add a description" aria-label="Description">${esc(i.desc)}</p>
@@ -880,8 +880,10 @@ function render(){
   grid.querySelectorAll("figure").forEach(f=>{
     const s=f.querySelector(".slides"),pips=[...f.querySelectorAll(".pips button")],c=f.querySelector(".count");
     if(!pips.length)return;
-    pips.forEach((p,k)=>p.onclick=()=>s.scrollTo({left:k*s.clientWidth}));
-    s.addEventListener("scroll",()=>{const k=Math.round(s.scrollLeft/s.clientWidth);pips.forEach((p,j)=>p.setAttribute("aria-current",j===k));c.textContent=`${k+1} / ${pips.length}`},{passive:true});
+    const more=()=>s.querySelectorAll("img[data-src]").forEach(m=>{m.src=m.dataset.src;m.removeAttribute("data-src")});
+    ["pointerdown","touchstart","focus","mouseenter"].forEach(ev=>s.addEventListener(ev,more,{once:true,passive:true}));
+    pips.forEach((p,k)=>p.onclick=()=>{more();s.scrollTo({left:k*s.clientWidth})});
+    s.addEventListener("scroll",()=>{more();const k=Math.round(s.scrollLeft/s.clientWidth);pips.forEach((p,j)=>p.setAttribute("aria-current",j===k));c.textContent=`${k+1} / ${pips.length}`},{passive:true});
   });
   grid.hidden=!list.length;empty.hidden=!!list.length;
   document.getElementById("emptyText").textContent=`Our ${current.toLowerCase()} are being photographed. Check back soon.`;
