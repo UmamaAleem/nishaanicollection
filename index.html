@@ -940,7 +940,7 @@ grid.addEventListener("focusout",e=>{
 });
 function copyText(t){try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).catch(()=>fallbackCopy(t));return}}catch(e){}fallbackCopy(t)}
 function fallbackCopy(t){try{const a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();document.execCommand("copy");a.remove()}catch(e){}}
-const dlg=document.getElementById("orderDlg"),oForm=document.getElementById("orderForm");let oItem=null;const DELIVERY=250;
+const dlg=document.getElementById("orderDlg"),oForm=document.getElementById("orderForm");let oItem=null;const DELIVERY=350;
 function oQty(){return Math.max(1,parseInt(oForm.qty.value)||1)}
 let BAG=[];try{BAG=JSON.parse(localStorage.getItem("nishaani-bag")||"[]").filter(b=>ITEMS.some(i=>i.sku===b.sku))}catch(e){BAG=[]}
 let oMode="one";
