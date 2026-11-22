@@ -158,74 +158,79 @@ p.ed:empty::before{content:attr(data-ph);color:#b9a08e;font-style:italic}
 .pe{display:flex;align-items:baseline;gap:6px;font-family:var(--display);font-size:22px;font-weight:600;color:var(--ink)}
 .pe input{width:7em;font:600 20px var(--display);color:var(--ink);background:#fff;border:1px solid #c9a35a;border-radius:3px;padding:2px 6px}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:21;background:var(--maroon-deep);color:var(--cream);border:1px solid var(--gold);padding:8px 16px;border-radius:999px;font-size:15px}
-/* Gift reel: a short looping animation (piece → gift box → free gift card) under the header */
-.gstage{position:relative;max-width:620px;margin:34px auto 0;aspect-ratio:4/3;overflow:hidden;border:1.5px solid var(--gold);
-  background:radial-gradient(120% 90% at 50% 35%,#6e2330 0%,var(--maroon-deep) 70%);box-shadow:0 14px 40px rgba(0,0,0,.3)}
-.gstage::after{content:"";position:absolute;inset:6px;border:1px solid var(--gold-dim);pointer-events:none}
-.gscene{position:absolute;inset:0;opacity:0;transform:scale(1.04);transition:opacity .7s ease,transform .9s ease}
-.gscene.on{opacity:1;transform:none}
-.gcap{position:absolute;left:0;right:0;bottom:7%;text-align:center;padding:0 16px}
-.gcap small{display:block;font:500 clamp(10px,2.4vw,12.5px) var(--body);letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
-.gcap b{display:block;font:italic 500 clamp(20px,4.6vw,30px)/1.15 var(--display);color:var(--cream);margin-top:6px}
-.gscene.on .gcap{animation:gUp .8s .25s both}
-@keyframes gUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-/* scene 1: a piece in an arch */
-.garch{position:absolute;left:50%;top:8%;width:31%;aspect-ratio:3/4;transform:translateX(-50%);border-radius:999px 999px 6px 6px;overflow:hidden;
-  border:2px solid var(--gold);background:var(--cream);box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.garch img{width:100%;height:100%;object-fit:cover;display:block}
-.gscene.on .garch img{animation:gZoom 3.6s ease-out both}
-@keyframes gZoom{from{transform:scale(1.25)}to{transform:scale(1)}}
-/* scene 2-3: gift box */
-.gbox{position:absolute;left:50%;top:12%;width:36%;transform:translateX(-50%);overflow:visible}
-.gbox svg{width:100%;height:auto;display:block;overflow:visible}
-.gscene.on .glid{animation:gLid .9s .5s cubic-bezier(.3,1.4,.5,1) both}
-@keyframes gLid{from{transform:translateY(-130px);opacity:0}60%{opacity:1}to{transform:none;opacity:1}}
-.gscene.on .grv{animation:gRv .5s 1.35s ease-out both;transform-box:fill-box;transform-origin:50% 0}
-.gscene.on .grh{animation:gRh .5s 1.35s ease-out both;transform-box:fill-box;transform-origin:0 50%}
-@keyframes gRv{from{transform:scaleY(0)}to{transform:none}}
-@keyframes gRh{from{transform:scaleX(0)}to{transform:none}}
-.gscene.on .gbow{animation:gBow .55s 1.8s cubic-bezier(.3,1.6,.5,1) both;transform-box:fill-box;transform-origin:50% 90%}
-@keyframes gBow{from{transform:scale(0)}to{transform:none}}
-.gscene.on .gdrop{animation:gDrop .7s .05s ease-in both}
-@keyframes gDrop{from{transform:translateY(-140px) scale(1.2);opacity:1}80%{opacity:1}to{transform:translateY(10px) scale(.6);opacity:0}}
-.gspark{position:absolute;width:10px;height:10px;opacity:0;background:var(--gold);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
-.gscene.on .gspark{animation:gTw 1.6s infinite}
-.gspark:nth-of-type(2){animation-delay:.5s!important}.gspark:nth-of-type(3){animation-delay:1s!important}
-@keyframes gTw{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1.2) rotate(45deg)}}
-/* scene 3: card slides out from behind the box */
-.g3 .gbox{animation:none}
-.gscene.g3.on .gbox{animation:gLeft .8s .1s ease both}
-@keyframes gLeft{from{transform:translateX(-50%)}to{transform:translateX(-95%)}}
-.gcard{position:absolute;top:8%;left:50%;width:27%;aspect-ratio:600/849;border-radius:3px;box-shadow:0 10px 26px rgba(0,0,0,.45)}
-.gcard img{width:100%;height:100%;display:block;border-radius:3px}
-.gscene.g3.on .gcard{animation:gCard .9s .45s cubic-bezier(.3,1.25,.5,1) both}
-@keyframes gCard{from{transform:translate(-40%,30%) rotate(0) scale(.7);opacity:0}to{transform:translate(18%,0) rotate(6deg);opacity:1}}
-.gfree{position:absolute;right:-16%;top:-7%;width:46%;aspect-ratio:1;border-radius:50%;background:var(--gold);color:var(--maroon-deep);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 clamp(11px,2.8vw,17px)/1 var(--body);letter-spacing:.08em;
-  box-shadow:0 0 0 3px var(--maroon-deep),0 0 0 4px var(--gold),0 6px 16px rgba(0,0,0,.35);transform:rotate(-14deg)}
-.gfree span{font-size:.5em;white-space:nowrap;letter-spacing:.14em;font-weight:500;margin-top:2px}
-.gscene.g3.on .gfree{animation:gStamp .45s 1.35s cubic-bezier(.3,1.7,.5,1) both}
-@keyframes gStamp{from{transform:rotate(-14deg) scale(2.4);opacity:0}to{transform:rotate(-14deg) scale(1);opacity:1}}
-/* scene 4: the card flips to its message side */
-.gflip{position:absolute;left:50%;top:7%;width:31%;aspect-ratio:600/849;transform:translateX(-50%);perspective:900px}
-.gflip i{position:absolute;inset:0;display:block;transform-style:preserve-3d}
-.gflip img{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden;border-radius:3px;box-shadow:0 10px 26px rgba(0,0,0,.45)}
-.gflip img+img{transform:rotateY(180deg)}
-.gscene.on .gflip i{animation:gFlip 1.1s .5s ease-in-out both}
-@keyframes gFlip{from{transform:rotateY(0)}to{transform:rotateY(180deg)}}
-.gdots{display:flex;justify-content:center;gap:8px;margin:12px 0 0}
-.gdots button{width:26px;height:4px;padding:0;border:0;border-radius:2px;background:var(--gold-dim);cursor:pointer}
-.gdots button[aria-current="true"]{background:var(--gold)}
+/* Gift reel v2: gift box opens, the sealed airtight box and a gift card go in, lid closes, ribbon is tied. 12 s loop on a 500×500 stage scaled to fit. */
+.greel{margin:34px auto 0;max-width:520px}
+.gstage{position:relative;aspect-ratio:1;overflow:hidden;border:1.5px solid var(--gold);
+  background:radial-gradient(110% 80% at 50% 38%,#73263a 0%,var(--maroon-deep) 72%);box-shadow:0 14px 40px rgba(0,0,0,.3)}
+.gstage::after{content:"";position:absolute;inset:6px;border:1px solid var(--gold-dim);pointer-events:none;z-index:9}
+.gin{position:absolute;left:0;top:0;width:500px;height:500px;transform-origin:0 0;transform:scale(var(--gs,1))}
+.gin>*{position:absolute;animation-duration:12s;animation-iteration-count:infinite;animation-fill-mode:both;animation-timing-function:ease-in-out}
+.gin{animation:gFade 12s infinite}
+@keyframes gFade{0%{opacity:0}3%,96%{opacity:1}100%{opacity:0}}
+.gopen{left:132px;top:240px;width:236px;height:16px;border-radius:50%;background:#050404;opacity:0;animation-name:gOpen}
+@keyframes gOpen{0%,9%{opacity:0}13%,66%{opacity:1}70%,100%{opacity:0}}
+/* the sealed airtight box (front view: black frame, clear film window) */
+.gair{left:160px;top:28px;width:180px;height:180px;border-radius:14px;background:linear-gradient(145deg,#2c2c2f,#0e0e10 60%);
+  box-shadow:0 14px 30px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.15);opacity:0;animation-name:gAir}
+.gair .win{position:absolute;inset:18px;border-radius:6px;overflow:hidden;background:linear-gradient(160deg,#3a3236,#1d1a1c);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.18),inset 0 6px 14px rgba(0,0,0,.6)}
+.gair .win img{position:absolute;left:8%;top:28%;width:84%;height:auto;filter:drop-shadow(0 3px 4px rgba(0,0,0,.5))}
+.gair .win::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,.08) 70%,rgba(255,255,255,0) 100%)}
+.gair .win::after{content:"";position:absolute;top:-30%;left:-60%;width:40%;height:160%;transform:rotate(25deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:gShine 12s infinite both}
+@keyframes gShine{0%,20%{left:-60%}29%,100%{left:130%}}
+.gair b{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);white-space:nowrap;font:600 12px var(--body);letter-spacing:.22em;color:var(--gold)}
+@keyframes gAir{0%,11%{opacity:0;transform:scale(.3) rotate(-14deg)}17%{opacity:1;transform:scale(1.07) rotate(2deg)}20%,31%{opacity:1;transform:none}
+  39%{opacity:1;transform:translateY(196px) scale(.55)}40%,100%{opacity:0;transform:translateY(196px) scale(.55)}}
+/* the gift card (changes every loop) */
+.gcd{left:178px;top:20px;width:144px;height:204px;border-radius:4px;overflow:hidden;box-shadow:0 12px 26px rgba(0,0,0,.5);opacity:0;animation-name:gCd}
+.gcd img{width:100%;height:100%;display:block;object-fit:cover}
+@keyframes gCd{0%,41%{opacity:0;transform:translateX(170px) rotate(20deg)}47%{opacity:1;transform:rotate(-4deg)}55%{opacity:1;transform:rotate(-4deg)}
+  63%{opacity:1;transform:translateY(212px) scale(.5)}64%,100%{opacity:0;transform:translateY(212px) scale(.5)}}
+/* the gift box */
+.gfront{left:130px;top:250px;width:240px;height:130px;border-radius:3px;background:linear-gradient(180deg,#262223,#121011);
+  box-shadow:inset 0 0 0 2px var(--gold),0 16px 30px rgba(0,0,0,.35);animation-name:gPack}
+.glid{left:118px;top:214px;width:264px;height:42px;border-radius:4px;background:linear-gradient(180deg,#302b2c,#1a1718);
+  box-shadow:inset 0 0 0 2px var(--gold),0 6px 12px rgba(0,0,0,.35);z-index:3;animation-name:gLid}
+@keyframes gLid{0%,6%{transform:none}14%,64%{transform:translate(188px,-36px) rotate(82deg)}72%,100%{transform:none}}
+.glid i,.gfront i{position:absolute;left:50%;top:0;bottom:0;width:24px;margin-left:-12px;background:linear-gradient(90deg,#c99d4f,#ecca83,#c99d4f)}
+.glid i{animation:gRibL 12s infinite both}
+.gfront i{transform-origin:50% 0;animation:gRibV 12s infinite both}
+.gfront s{position:absolute;left:0;right:0;top:48px;height:22px;text-decoration:none;background:linear-gradient(180deg,#c99d4f,#ecca83,#c99d4f);transform-origin:0 50%;animation:gRibH 12s infinite both}
+@keyframes gRibL{0%,73%{opacity:0}77%,100%{opacity:1}}
+@keyframes gRibV{0%,73%{transform:scaleY(0)}78%,100%{transform:none}}
+@keyframes gRibH{0%,75%{transform:scaleX(0)}80%,100%{transform:none}}
+.gbow{left:196px;top:166px;width:108px;height:58px;z-index:4;transform-origin:50% 100%;animation-name:gBow}
+.gbow svg{width:100%;height:100%;overflow:visible}
+@keyframes gBow{0%,79%{transform:scale(0)}84%{transform:scale(1.15)}87%,100%{transform:none}}
+@keyframes gPack{0%,84%{transform:none}86%{transform:translateY(-6px)}88%,100%{transform:none}}
+.gstamp{left:352px;top:150px;width:104px;height:104px;border-radius:50%;z-index:5;background:var(--gold);color:var(--maroon-deep);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font:700 26px/1 var(--body);letter-spacing:.06em;
+  box-shadow:0 0 0 3px var(--maroon-deep),0 0 0 4.5px var(--gold),0 8px 18px rgba(0,0,0,.4);animation-name:gStamp}
+.gstamp span{font-size:10.5px;letter-spacing:.12em;font-weight:600;margin-top:5px;line-height:1.3}
+@keyframes gStamp{0%,86%{opacity:0;transform:rotate(-14deg) scale(2.2)}90%,100%{opacity:1;transform:rotate(-14deg)}}
+.gsp{width:16px;height:16px;background:var(--gold);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation-name:gSp}
+@keyframes gSp{0%,86%{opacity:0;transform:scale(.2)}90%{opacity:1;transform:scale(1.3) rotate(45deg)}95%{opacity:.4;transform:scale(.8)}100%{opacity:1;transform:scale(1.1) rotate(90deg)}}
+/* captions */
+.gcap{left:20px;right:20px;top:398px;text-align:center;opacity:0}
+.gcap small{display:block;font:600 14px var(--body);letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.gcap b{display:block;font:italic 500 32px/1.15 var(--display);color:var(--cream);margin-top:6px}
+.gc1{animation-name:gC1}.gc2{animation-name:gC2}.gc3{animation-name:gC3}.gc4{animation-name:gC4}
+@keyframes gC1{0%,4%{opacity:0;transform:translateY(12px)}8%,34%{opacity:1;transform:none}38%,100%{opacity:0}}
+@keyframes gC2{0%,40%{opacity:0;transform:translateY(12px)}45%,62%{opacity:1;transform:none}65%,100%{opacity:0}}
+@keyframes gC3{0%,65%{opacity:0;transform:translateY(12px)}69%,84%{opacity:1;transform:none}87%,100%{opacity:0}}
+@keyframes gC4{0%,87%{opacity:0;transform:translateY(12px)}91%,100%{opacity:1;transform:none}}
 .gsee{display:block;margin:12px auto 0;font:500 14px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:none;border:0;cursor:pointer;padding:8px 10px}
 .gsee:hover{color:var(--cream)}
-@media (max-width:520px){.gstage{aspect-ratio:1}.garch{width:44%;top:8%}.g3 .gbox{width:48%;top:16%}.g3 .gcard{left:46%}.gbox{width:60%;top:12%}.gcard{width:33%;top:9%}.gflip{width:44%;top:6%}.gcap{bottom:6%}}
+@media (prefers-reduced-motion:reduce){.gin,.gin *{animation:none!important}.gair,.gcd,.gc1,.gc2,.gc3,.gopen{opacity:0!important}.gc4,.gstamp{opacity:1}.gstamp{transform:rotate(-14deg)}}
 /* Gift cards tab */
 #grid[hidden]{display:none}
 .gpanel{text-align:center}
 .gpanel h2{font:italic 500 clamp(28px,5vw,40px)/1.1 var(--display);margin:0;color:var(--cream)}
 .gpanel .gk{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:0 0 8px}
 .gpanel .gl{max-width:34em;margin:12px auto 0;opacity:.9;text-wrap:balance}
-.gcards{display:grid;grid-template-columns:repeat(2,minmax(0,300px));justify-content:center;gap:26px;margin:30px 0 0}
+.gcards{display:grid;grid-template-columns:repeat(4,minmax(0,220px));justify-content:center;gap:22px;margin:18px 0 0}
+.gh{font:italic 500 24px var(--display);color:var(--gold);margin:34px 0 0}
 .gcards figure{margin:0}
 .gfacts{margin-top:16px}
 .gcards img{width:100%;height:auto;display:block;border-radius:3px;box-shadow:0 0 0 1px var(--gold-dim),0 12px 30px rgba(0,0,0,.35)}
@@ -237,16 +242,16 @@ p.ed:empty::before{content:attr(data-ph);color:#b9a08e;font-style:italic}
 .ghow span{display:block;font-size:15.5px;line-height:1.4}
 .gbrowse{margin-top:28px;font:500 15px var(--body);letter-spacing:.08em;color:var(--maroon-deep);background:var(--gold);border:0;border-radius:999px;padding:11px 24px;cursor:pointer}
 .gbrowse:hover{background:var(--cream)}
+@media (max-width:760px){.gcards{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
 @media (max-width:560px){.gcards{gap:12px}.gcards figcaption{font-size:16px}.ghow{grid-template-columns:1fr}}
 nav button.gtab{border-color:var(--gold)}
-@media (prefers-reduced-motion:reduce){.gscene,.gscene *{animation:none!important;transition:none!important}}
 @media (prefers-reduced-motion:reduce){.slides{scroll-behavior:auto}}
 </style>
 
 <div class="frame"><div class="frame-inner">
   <header>
     <h1 class="sr">Nishaani Jewellery</h1>
-    <img class="seal" src="img/emblem.png" alt="Nishaani fingerprint seal">
+    <img class="seal" src="img/ringmark.png" alt="Nishaani logo: fingerprint inside a gold ring with a diamond" width="300" height="330">
     <img class="wordmark" src="img/wordmark.png" alt="نشانی">
     <p class="kind">JEWELLERY</p>
     <div class="dots" aria-hidden="true"><i></i><b><span></span></b><i></i></div>
@@ -256,46 +261,22 @@ nav button.gtab{border-color:var(--gold)}
     <ul class="facts"><li>Stainless steel</li><li>Gold tone</li><li>Everyday wear</li></ul>
   </header>
 
-  <section class="greel" aria-label="Free gift packaging and gift card">
-    <div class="gstage" id="gStage">
-      <div class="gscene g1 on">
-        <div class="garch"><img src="img/pd-01-03283.jpg" alt="" decoding="async"></div>
-        <p class="gcap"><small>Choose your nishaani</small><b>a little keepsake, just for them</b></p>
-      </div>
-      <div class="gscene g2">
-        <div class="gbox"><div class="gdrop" style="position:absolute;left:30%;top:20%;width:40%;aspect-ratio:1;border-radius:50%;overflow:hidden;border:2px solid var(--gold)"><img src="img/pd-01-03283.jpg" alt="" style="width:100%;height:100%;object-fit:cover"></div>
-          <svg viewBox="0 0 200 190" aria-hidden="true"><g>
-            <rect x="22" y="78" width="156" height="106" rx="3" fill="#1c1617" stroke="#d9b46a" stroke-width="2"/>
-            <rect class="grv" x="91" y="78" width="18" height="106" fill="#d9b46a"/>
-            <g class="glid"><rect x="12" y="56" width="176" height="28" rx="3" fill="#262021" stroke="#d9b46a" stroke-width="2"/>
-              <rect class="grv" x="91" y="56" width="18" height="28" fill="#d9b46a"/></g>
-            <g class="gbow"><path d="M100 56c-14-26-50-30-48-10 2 14 30 14 48 10Z" fill="#e6c47c" stroke="#b8903e" stroke-width="1.5"/>
-              <path d="M100 56c14-26 50-30 48-10-2 14-30 14-48 10Z" fill="#e6c47c" stroke="#b8903e" stroke-width="1.5"/>
-              <circle cx="100" cy="55" r="7" fill="#d9b46a" stroke="#b8903e" stroke-width="1.5"/></g>
-          </g></svg>
-          <span class="gspark" style="left:-4%;top:30%"></span><span class="gspark" style="right:-6%;top:12%"></span><span class="gspark" style="right:2%;top:70%"></span>
-        </div>
-        <p class="gcap"><small>Gift packaging · free</small><b>in our airtight black gift box</b></p>
-      </div>
-      <div class="gscene g3">
-        <div class="gbox"><svg viewBox="0 0 200 190" aria-hidden="true">
-            <rect x="22" y="78" width="156" height="106" rx="3" fill="#1c1617" stroke="#d9b46a" stroke-width="2"/>
-            <rect x="91" y="78" width="18" height="106" fill="#d9b46a"/>
-            <rect x="12" y="56" width="176" height="28" rx="3" fill="#262021" stroke="#d9b46a" stroke-width="2"/>
-            <rect x="91" y="56" width="18" height="28" fill="#d9b46a"/>
-            <path d="M100 56c-14-26-50-30-48-10 2 14 30 14 48 10Z" fill="#e6c47c" stroke="#b8903e" stroke-width="1.5"/>
-            <path d="M100 56c14-26 50-30 48-10-2 14-30 14-48 10Z" fill="#e6c47c" stroke="#b8903e" stroke-width="1.5"/>
-            <circle cx="100" cy="55" r="7" fill="#d9b46a" stroke="#b8903e" stroke-width="1.5"/></svg></div>
-        <div class="gcard"><img src="img/giftcard-front.jpg" alt="" decoding="async"><span class="gfree">FREE<span>BOX &amp; CARD</span></span></div>
-        <p class="gcap"><small>Gift card · free</small><b>both on us, with every gift ♡</b></p>
-      </div>
-      <div class="gscene g4">
-        <div class="gflip"><i><img src="img/giftcard-front.jpg" alt="" decoding="async"><img src="img/giftcard-back.jpg" alt="" decoding="async"></i></div>
-        <p class="gcap"><small>Sending a gift?</small><b>tick “It's a gift” and we add both</b></p>
-      </div>
-    </div>
-    <div class="gdots" id="gDots"></div>
-    <button type="button" class="gsee" id="gSee">See our gift cards →</button>
+  <section class="greel" aria-label="Free airtight box and gift card, packed in a gift box with a ribbon">
+    <div class="gstage" id="gStage"><div class="gin" id="gIn">
+      <span class="gopen"></span>
+      <div class="gair"><div class="win"><img src="img/gift-piece.png" alt="" decoding="async"></div></div>
+      <div class="gcd"><img id="gCardImg" src="img/card-mark-on-my-heart.jpg" alt="" decoding="async"></div>
+      <div class="gfront"><i></i><s></s></div>
+      <div class="glid"><i></i></div>
+      <div class="gbow"><svg viewBox="0 0 108 58" aria-hidden="true"><path d="M54 50C40 18 4 8 6 32c2 16 30 20 48 18Z" fill="#e6c47c" stroke="#b8903e" stroke-width="2"/><path d="M54 50C68 18 104 8 102 32c-2 16-30 20-48 18Z" fill="#e6c47c" stroke="#b8903e" stroke-width="2"/><path d="M50 52 38 70M58 52l12 18" stroke="#d9b46a" stroke-width="7" stroke-linecap="round"/><circle cx="54" cy="49" r="9" fill="#d9b46a" stroke="#b8903e" stroke-width="2"/></svg></div>
+      <div class="gstamp">FREE<span>AIRTIGHT BOX<br>&amp; GIFT CARD</span></div>
+      <span class="gsp" style="left:86px;top:200px"></span><span class="gsp" style="left:96px;top:330px;animation-delay:.25s"></span><span class="gsp" style="left:400px;top:300px;animation-delay:.4s"></span>
+      <p class="gcap gc1"><small>Free · airtight box</small><b>your piece, sealed &amp; safe</b></p>
+      <p class="gcap gc2"><small>Free · gift card</small><b>pick a card for your message</b></p>
+      <p class="gcap gc3"><small>Gift box &amp; ribbon</small><b>we pack it all &amp; tie it up</b></p>
+      <p class="gcap gc4"><small>Sending a gift?</small><b>tick “It's a gift” and it's added</b></p>
+    </div></div>
+    <button type="button" class="gsee" id="gSee">See all our gift cards →</button>
   </section>
 
   <nav id="filters" aria-label="Categories"></nav>
@@ -307,17 +288,17 @@ nav button.gtab{border-color:var(--gold)}
   </div>
   <section id="giftPanel" class="gpanel" hidden>
     <p class="gk">Free with every gift</p>
-    <h2>Gift box &amp; gift card</h2>
-    <p class="gl">Sending a nishaani to someone you love? Tell us it's a gift and we'll add our <b>airtight black gift box</b> and a <b>gift card</b>, both <b>free</b>.</p>
-    <ul class="facts gfacts"><li>Airtight black box · free</li><li>Gift card · free</li></ul>
-    <div class="gcards">
-      <figure><img src="img/giftcard-front.jpg" alt="Gift card front: maroon with the gold fingerprint seal, نشانی Jewellery, a little keepsake, just for you." loading="lazy" width="720" height="1019"><figcaption>Front<small>a little keepsake, just for you</small></figcaption></figure>
-      <figure><img src="img/giftcard-back.jpg" alt="Gift card back: یہ نشانی آپ کے لیے, this little keepsake is for you, with space for dear and with love, care tips and our Instagram QR code." loading="lazy" width="720" height="1019"><figcaption>Back<small>space for your message</small></figcaption></figure>
-    </div>
+    <h2>Gift box &amp; gift cards</h2>
+    <p class="gl">Sending a nishaani to someone you love? Tell us it's a gift and we'll seal your piece in our <b>airtight box</b> and add a <b>gift card</b> of your choice, both <b>free</b>, packed in a gift box with a ribbon.</p>
+    <ul class="facts gfacts"><li>Airtight box · free</li><li>Gift card · free</li></ul>
+    <h3 class="gh">Keepsake cards</h3>
+    <div class="gcards" id="gCardsA"></div>
+    <h3 class="gh">Friends vibe cards</h3>
+    <div class="gcards" id="gCardsB"></div>
     <ol class="ghow" aria-label="How to send it as a gift">
       <li><i>1</i><span>Pick a piece and tap <b>Make it yours</b> or <b>+ Bag</b></span></li>
       <li><i>2</i><span>Tick <b>It's a gift</b> in the order form</span></li>
-      <li><i>3</i><span>We add the <b>airtight black gift box</b> and <b>gift card</b>, free. Put your message in the <b>note</b></span></li>
+      <li><i>3</i><span>In the <b>note</b>, write which card you want and your message</span></li>
     </ol>
     <button type="button" class="gbrowse" id="gBrowse">Browse the collection</button>
   </section>
@@ -343,7 +324,7 @@ nav button.gtab{border-color:var(--gold)}
       <label>Delivery address<input name="address" required autocomplete="street-address"></label>
       <div class="orow"><label id="oQtyL">Quantity<input name="qty" type="number" min="1" max="20" value="1" inputmode="numeric"></label>
       <label class="ogift"><input name="gift" type="checkbox"> It's a gift <small>(free gift box + card 🎁)</small></label></div>
-      <label>Note <small>(ring size, gift message, colour)</small><textarea name="note" rows="2"></textarea></label>
+      <label>Note <small>(ring size, gift card &amp; message, colour)</small><textarea name="note" rows="2"></textarea></label>
       <div class="osum" id="oSum" aria-live="polite"></div>
       <ol class="osteps" aria-label="How your order reaches us"><li><i>1</i><span>We <b>copy</b> your order</span></li><li><i>2</i><span>You <b>open</b> our DM</span></li><li><i>3</i><span><b>Paste</b> &amp; send ♡</span></li></ol>
       <p class="oerr" id="oErr" role="alert" hidden>Please add your name, phone, city and delivery address.</p>
@@ -1022,6 +1003,15 @@ const ITEMS=[
 "desc": "A small peach box with a pull-out drawer and a soft grey cushion that holds a ring or a pair of earrings."
 }
 ];
+const GIFT_CARDS=[
+{set:"A",img:"img/card-mark-on-my-heart.jpg",name:"You left your mark",alt:"Maroon card: you left your mark on my heart, so here's a little nishaani of mine"},
+{set:"A",img:"img/card-piece-of-me.jpg",name:"A little piece of me",alt:"Cream envelope card with a maroon seal: a little piece of me, to keep with you"},
+{set:"A",img:"img/card-kuch-nishaniyan.jpg",name:"Kuch nishaniyan",alt:"Mustard card: کچھ نشانیاں عمر بھر ساتھ رہتی ہیں, Ammi, Behan, Beti, Dost"},
+{set:"A",img:"img/card-jab-meri-yaad.jpg",name:"Jab meri yaad aaye",alt:"Olive card: جب میری یاد آئے اسے پہن لینا, for the days we're apart"},
+{set:"B",img:"img/card-season-episode.jpg",name:"Season 1 · Episode you",alt:"Yellow card with a green sofa: the one where you got a little nishaani"},
+{set:"B",img:"img/card-lobster.jpg",name:"You're my lobster",alt:"Pink card with a lobster: you're my lobster, for life, and then some"},
+{set:"B",img:"img/card-could-this-be.jpg",name:"Could this BE any prettier?",alt:"Lilac card with a ring: could this BE any prettier?"},
+{set:"B",img:"img/card-how-you-doin.jpg",name:"How you doin'?",alt:"Peach card with earrings: how you doin'? (asking for your new earrings)"}];
 const CATS=["All","Bracelets","Rings","Earrings","Pendants","Jewellery Boxes","Gift Cards"];
 let current="All",over={},editing=false,db=null;
 try{const s=localStorage.getItem("nishaani-cat");if(CATS.includes(s))current=s}catch(e){}
@@ -1040,7 +1030,7 @@ function render(){
     nav.appendChild(b);
   });
   const gp=document.getElementById("giftPanel");gp.hidden=current!=="Gift Cards";
-  if(current==="Gift Cards"){grid.hidden=true;empty.hidden=true;return}
+  if(current==="Gift Cards"){grid.hidden=true;empty.hidden=true;["A","B"].forEach(k=>{document.getElementById("gCards"+k).innerHTML=GIFT_CARDS.filter(c=>c.set===k).map(c=>`<figure><img src="${c.img}" alt="${esc(c.alt)}" loading="lazy" width="560" height="792"><figcaption>${esc(c.name)}</figcaption></figure>`).join("")});return}
   const list=ITEMS.filter(i=>current==="All"||i.cat===current).map(view);
   grid.innerHTML=list.map(i=>{const n=esc(i.name);return `<article class="card">
     <figure>${i.imgs.length?`<div class="slides" tabindex="0" aria-label="${n} photos">${i.imgs.map((s,k)=>k?`<img data-src="${s}" alt="${n}, photo ${k+1}" decoding="async">`:`<img src="${s}" alt="${n}, photo ${k+1}" loading="lazy" decoding="async" width="720" height="540">`).join("")}</div>${i.imgs.length>1?`<span class="count">1 / ${i.imgs.length}</span><div class="pips">${i.imgs.map((s,k)=>`<button type="button" aria-label="Show photo ${k+1}" aria-current="${k===0}"></button>`).join("")}</div>`:""}`:`<div class="ph"><img src="img/emblem.png" alt=""><span>photo coming soon</span></div>`}</figure>
@@ -1168,14 +1158,14 @@ render();updBag();
 })();
 (function(){
   const st=document.getElementById("gStage");if(!st)return;
-  const sc=[...st.querySelectorAll(".gscene")],dots=document.getElementById("gDots");
-  const T=[3200,3600,3600,3400],still=matchMedia("(prefers-reduced-motion: reduce)").matches;let k=0,t;
-  sc.forEach((s,j)=>{const b=document.createElement("button");b.type="button";b.setAttribute("aria-label","Show part "+(j+1));b.onclick=()=>go(j,true);dots.appendChild(b)});
-  function go(j,user){k=j;sc.forEach((s,i)=>s.classList.toggle("on",i===j));[...dots.children].forEach((b,i)=>b.setAttribute("aria-current",i===j));
-    clearTimeout(t);if(!still)t=setTimeout(()=>go((k+1)%sc.length),T[k]+(user?1500:0))}
-  go(still?2:0);
-  document.getElementById("gSee").onclick=()=>{current="Gift Cards";try{localStorage.setItem("nishaani-cat",current)}catch(e){}render();nav.scrollIntoView({behavior:"smooth"})};
-  document.getElementById("gBrowse").onclick=()=>{current="All";try{localStorage.setItem("nishaani-cat",current)}catch(e){}render();nav.scrollIntoView({behavior:"smooth"})};
+  const gin=document.getElementById("gIn"),fit=()=>gin.style.setProperty("--gs",st.clientWidth/500);fit();
+  try{new ResizeObserver(fit).observe(st)}catch(e){addEventListener("resize",fit)}
+  const C=GIFT_CARDS.map(c=>c.img);let k=0;const im=document.getElementById("gCardImg");
+  C.slice(1).forEach(s=>{const i=new Image();i.src=s});
+  gin.addEventListener("animationiteration",e=>{if(e.target===gin){k=(k+1)%C.length;im.src=C[k]}});
+  const goTab=c=>{current=c;try{localStorage.setItem("nishaani-cat",c)}catch(e){}render();nav.scrollIntoView({behavior:"smooth"})};
+  document.getElementById("gSee").onclick=()=>goTab("Gift Cards");
+  document.getElementById("gBrowse").onclick=()=>goTab("All");
 })();
 </script>
 </body></html>
