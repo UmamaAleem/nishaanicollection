@@ -158,17 +158,17 @@ p.ed:empty::before{content:attr(data-ph);color:#b9a08e;font-style:italic}
 .pe{display:flex;align-items:baseline;gap:6px;font-family:var(--display);font-size:22px;font-weight:600;color:var(--ink)}
 .pe input{width:7em;font:600 20px var(--display);color:var(--ink);background:#fff;border:1px solid #c9a35a;border-radius:3px;padding:2px 6px}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:21;background:var(--maroon-deep);color:var(--cream);border:1px solid var(--gold);padding:8px 16px;border-radius:999px;font-size:15px}
-/* Gift reel v2: gift box opens, the sealed airtight box and a gift card go in, lid closes, ribbon is tied. 12 s loop on a 500×500 stage scaled to fit. */
+/* Gift reel v2: gift box opens, the sealed airtight box and a gift card go in, lid closes, ribbon is tied. 15 s loop on a 500×500 stage scaled to fit. */
 .greel{margin:34px auto 0;max-width:520px}
 .gstage{position:relative;aspect-ratio:1;overflow:hidden;border:1.5px solid var(--gold);
   background:radial-gradient(110% 80% at 50% 38%,#73263a 0%,var(--maroon-deep) 72%);box-shadow:0 14px 40px rgba(0,0,0,.3)}
 .gstage::after{content:"";position:absolute;inset:6px;border:1px solid var(--gold-dim);pointer-events:none;z-index:9}
 .gin{position:absolute;left:0;top:0;width:500px;height:500px;transform-origin:0 0;transform:scale(var(--gs,1))}
-.gin>*{position:absolute;animation-duration:12s;animation-iteration-count:infinite;animation-fill-mode:both;animation-timing-function:ease-in-out}
-.gin{animation:gFade 12s infinite}
-@keyframes gFade{0%{opacity:0}3%,96%{opacity:1}100%{opacity:0}}
+.gin>*{position:absolute;animation-duration:15s;animation-iteration-count:infinite;animation-fill-mode:both;animation-timing-function:ease-in-out}
+.gin{animation:gFade 15s infinite}
+@keyframes gFade{0%{opacity:0}2.5%,97%{opacity:1}100%{opacity:0}}
 .gopen{left:132px;top:240px;width:236px;height:16px;border-radius:50%;background:#050404;opacity:0;animation-name:gOpen}
-@keyframes gOpen{0%,9%{opacity:0}13%,66%{opacity:1}70%,100%{opacity:0}}
+@keyframes gOpen{0%,7.2%{opacity:0}10.4%,52.8%{opacity:1}56%,100%{opacity:0}}
 /* the sealed airtight box (front view: black frame, clear film window) */
 .gair{left:160px;top:28px;width:180px;height:180px;border-radius:14px;background:linear-gradient(145deg,#2c2c2f,#0e0e10 60%);
   box-shadow:0 14px 30px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.15);opacity:0;animation-name:gAir}
@@ -177,49 +177,49 @@ p.ed:empty::before{content:attr(data-ph);color:#b9a08e;font-style:italic}
 .gair .win img{position:absolute;left:8%;top:28%;width:84%;height:auto;filter:drop-shadow(0 3px 4px rgba(0,0,0,.5))}
 .gair .win::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,.08) 70%,rgba(255,255,255,0) 100%)}
 .gair .win::after{content:"";position:absolute;top:-30%;left:-60%;width:40%;height:160%;transform:rotate(25deg);
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:gShine 12s infinite both}
-@keyframes gShine{0%,20%{left:-60%}29%,100%{left:130%}}
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:gShine 15s infinite both}
+@keyframes gShine{0%,16%{left:-60%}23.2%,100%{left:130%}}
 .gair b{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);white-space:nowrap;font:600 12px var(--body);letter-spacing:.22em;color:var(--gold)}
-@keyframes gAir{0%,11%{opacity:0;transform:scale(.3) rotate(-14deg)}17%{opacity:1;transform:scale(1.07) rotate(2deg)}20%,31%{opacity:1;transform:none}
-  39%{opacity:1;transform:translateY(196px) scale(.55)}40%,100%{opacity:0;transform:translateY(196px) scale(.55)}}
+@keyframes gAir{0%,8.8%{opacity:0;transform:scale(.3) rotate(-14deg)}13.6%{opacity:1;transform:scale(1.07) rotate(2deg)}16%,24.8%{opacity:1;transform:none}
+  31.2%{opacity:1;transform:translateY(196px) scale(.55)}32%,100%{opacity:0;transform:translateY(196px) scale(.55)}}
 /* the gift card (changes every loop) */
 .gcd{left:178px;top:20px;width:144px;height:204px;border-radius:4px;overflow:hidden;box-shadow:0 12px 26px rgba(0,0,0,.5);opacity:0;animation-name:gCd}
 .gcd img{width:100%;height:100%;display:block;object-fit:cover}
-@keyframes gCd{0%,41%{opacity:0;transform:translateX(170px) rotate(20deg)}47%{opacity:1;transform:rotate(-4deg)}55%{opacity:1;transform:rotate(-4deg)}
-  63%{opacity:1;transform:translateY(212px) scale(.5)}64%,100%{opacity:0;transform:translateY(212px) scale(.5)}}
+@keyframes gCd{0%,32.8%{opacity:0;transform:translateX(170px) rotate(20deg)}37.6%{opacity:1;transform:rotate(-4deg)}44%{opacity:1;transform:rotate(-4deg)}
+  50.4%{opacity:1;transform:translateY(212px) scale(.5)}51.2%,100%{opacity:0;transform:translateY(212px) scale(.5)}}
 /* the gift box */
 .gfront{left:130px;top:250px;width:240px;height:130px;border-radius:3px;background:linear-gradient(180deg,#262223,#121011);
   box-shadow:inset 0 0 0 2px var(--gold),0 16px 30px rgba(0,0,0,.35);animation-name:gPack}
 .glid{left:118px;top:214px;width:264px;height:42px;border-radius:4px;background:linear-gradient(180deg,#302b2c,#1a1718);
   box-shadow:inset 0 0 0 2px var(--gold),0 6px 12px rgba(0,0,0,.35);z-index:3;animation-name:gLid}
-@keyframes gLid{0%,6%{transform:none}14%,64%{transform:translate(188px,-36px) rotate(82deg)}72%,100%{transform:none}}
+@keyframes gLid{0%,4.8%{transform:none}11.2%,51.2%{transform:translate(188px,-36px) rotate(82deg)}57.6%,100%{transform:none}}
 .glid i,.gfront i{position:absolute;left:50%;top:0;bottom:0;width:24px;margin-left:-12px;background:linear-gradient(90deg,#c99d4f,#ecca83,#c99d4f)}
-.glid i{animation:gRibL 12s infinite both}
-.gfront i{transform-origin:50% 0;animation:gRibV 12s infinite both}
-.gfront s{position:absolute;left:0;right:0;top:48px;height:22px;text-decoration:none;background:linear-gradient(180deg,#c99d4f,#ecca83,#c99d4f);transform-origin:0 50%;animation:gRibH 12s infinite both}
-@keyframes gRibL{0%,73%{opacity:0}77%,100%{opacity:1}}
-@keyframes gRibV{0%,73%{transform:scaleY(0)}78%,100%{transform:none}}
-@keyframes gRibH{0%,75%{transform:scaleX(0)}80%,100%{transform:none}}
+.glid i{animation:gRibL 15s infinite both}
+.gfront i{transform-origin:50% 0;animation:gRibV 15s infinite both}
+.gfront s{position:absolute;left:0;right:0;top:48px;height:22px;text-decoration:none;background:linear-gradient(180deg,#c99d4f,#ecca83,#c99d4f);transform-origin:0 50%;animation:gRibH 15s infinite both}
+@keyframes gRibL{0%,58.4%{opacity:0}61.6%,100%{opacity:1}}
+@keyframes gRibV{0%,58.4%{transform:scaleY(0)}62.4%,100%{transform:none}}
+@keyframes gRibH{0%,60%{transform:scaleX(0)}64%,100%{transform:none}}
 .gbow{left:196px;top:166px;width:108px;height:58px;z-index:4;transform-origin:50% 100%;animation-name:gBow}
 .gbow svg{width:100%;height:100%;overflow:visible}
-@keyframes gBow{0%,79%{transform:scale(0)}84%{transform:scale(1.15)}87%,100%{transform:none}}
-@keyframes gPack{0%,84%{transform:none}86%{transform:translateY(-6px)}88%,100%{transform:none}}
+@keyframes gBow{0%,63.2%{transform:scale(0)}67.2%{transform:scale(1.15)}69.6%,100%{transform:none}}
+@keyframes gPack{0%,67.2%{transform:none}68.8%{transform:translateY(-6px)}70.4%,100%{transform:none}}
 .gstamp{left:352px;top:150px;width:104px;height:104px;border-radius:50%;z-index:5;background:var(--gold);color:var(--maroon-deep);
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font:700 26px/1 var(--body);letter-spacing:.06em;
   box-shadow:0 0 0 3px var(--maroon-deep),0 0 0 4.5px var(--gold),0 8px 18px rgba(0,0,0,.4);animation-name:gStamp}
 .gstamp span{font-size:10.5px;letter-spacing:.12em;font-weight:600;margin-top:5px;line-height:1.3}
-@keyframes gStamp{0%,86%{opacity:0;transform:rotate(-14deg) scale(2.2)}90%,100%{opacity:1;transform:rotate(-14deg)}}
+@keyframes gStamp{0%,68.8%{opacity:0;transform:rotate(-14deg) scale(2.2)}72%,100%{opacity:1;transform:rotate(-14deg)}}
 .gsp{width:16px;height:16px;background:var(--gold);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation-name:gSp}
-@keyframes gSp{0%,86%{opacity:0;transform:scale(.2)}90%{opacity:1;transform:scale(1.3) rotate(45deg)}95%{opacity:.4;transform:scale(.8)}100%{opacity:1;transform:scale(1.1) rotate(90deg)}}
+@keyframes gSp{0%,69%{opacity:0;transform:scale(.2)}72%{opacity:1;transform:scale(1.3) rotate(45deg)}84%{opacity:.4;transform:scale(.8)}100%{opacity:1;transform:scale(1.1) rotate(90deg)}}
 /* captions */
 .gcap{left:20px;right:20px;top:398px;text-align:center;opacity:0}
 .gcap small{display:block;font:600 14px var(--body);letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
 .gcap b{display:block;font:italic 500 32px/1.15 var(--display);color:var(--cream);margin-top:6px}
 .gc1{animation-name:gC1}.gc2{animation-name:gC2}.gc3{animation-name:gC3}.gc4{animation-name:gC4}
-@keyframes gC1{0%,4%{opacity:0;transform:translateY(12px)}8%,34%{opacity:1;transform:none}38%,100%{opacity:0}}
-@keyframes gC2{0%,40%{opacity:0;transform:translateY(12px)}45%,62%{opacity:1;transform:none}65%,100%{opacity:0}}
-@keyframes gC3{0%,65%{opacity:0;transform:translateY(12px)}69%,84%{opacity:1;transform:none}87%,100%{opacity:0}}
-@keyframes gC4{0%,87%{opacity:0;transform:translateY(12px)}91%,100%{opacity:1;transform:none}}
+@keyframes gC1{0%,3.2%{opacity:0;transform:translateY(12px)}6.4%,27.2%{opacity:1;transform:none}30.4%,100%{opacity:0}}
+@keyframes gC2{0%,32%{opacity:0;transform:translateY(12px)}36%,49.6%{opacity:1;transform:none}52%,100%{opacity:0}}
+@keyframes gC3{0%,52%{opacity:0;transform:translateY(12px)}55.2%,67.2%{opacity:1;transform:none}69.6%,100%{opacity:0}}
+@keyframes gC4{0%,69.6%{opacity:0;transform:translateY(12px)}72.8%,100%{opacity:1;transform:none}}
 .gsee{display:block;margin:12px auto 0;font:500 14px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:none;border:0;cursor:pointer;padding:8px 10px}
 .gsee:hover{color:var(--cream)}
 @media (prefers-reduced-motion:reduce){.gin,.gin *{animation:none!important}.gair,.gcd,.gc1,.gc2,.gc3,.gopen{opacity:0!important}.gc4,.gstamp{opacity:1}.gstamp{transform:rotate(-14deg)}}
