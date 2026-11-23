@@ -105,7 +105,7 @@ nav small{opacity:.7;margin-left:6px;letter-spacing:0}
 #oFields,#oDone{display:flex;flex-direction:column;gap:10px}#oDone{gap:14px}
 .odlg label{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--ink)}
 .odlg label small{color:var(--muted);font-size:12.5px}
-.odlg input:not([type=checkbox]),.odlg textarea{font:16px var(--body);color:var(--ink);background:#fff;border:1px solid var(--rule);border-radius:3px;padding:9px 11px;min-height:44px;width:100%;box-sizing:border-box}
+.odlg input:not([type=checkbox]):not([type=radio]),.odlg textarea{font:16px var(--body);color:var(--ink);background:#fff;border:1px solid var(--rule);border-radius:3px;padding:9px 11px;min-height:44px;width:100%;box-sizing:border-box}
 .odlg textarea{resize:vertical;min-height:60px}
 .odlg input:focus-visible,.odlg textarea:focus-visible{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
 .odlg input[aria-invalid=true]{border-color:#b3261e}
@@ -128,6 +128,22 @@ nav small{opacity:.7;margin-left:6px;letter-spacing:0}
 .odo{flex-direction:column;gap:10px;font-size:16px}.odo li{display:flex;gap:10px;align-items:center}
 .odo-ig{display:none!important}.inapp .odo-ig{display:flex!important}.inapp .odo-web,.inapp #oOpen{display:none!important}
 .obtn.big{min-height:52px;font-size:18px;flex:none}
+.osec{margin:8px 0 -2px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#a07c37;border-top:1px solid var(--rule);padding-top:12px}
+#oFields>.osec:first-child{border-top:0;padding-top:0;margin-top:0}
+.opay{display:flex;flex-direction:column;gap:8px}
+.odlg .opt{flex-direction:row;align-items:flex-start;gap:10px;padding:11px 12px;border:1px solid var(--rule);border-radius:4px;background:#fff;cursor:pointer}
+.odlg .opt:has(input:checked){border-color:var(--maroon);box-shadow:inset 0 0 0 1px var(--maroon);background:var(--cream)}
+.opt input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--maroon);flex:none}
+.opt span{display:flex;flex-direction:column;line-height:1.25}.opt b{font-size:16px;color:var(--ink)}.odlg .opt small{font-size:13px}
+.oacc{font-size:14px;line-height:1.5;background:var(--cream);border:1px dashed var(--gold);border-radius:4px;padding:10px 12px}
+.oacc div{display:flex;justify-content:space-between;gap:10px}.oacc b{color:var(--maroon)}
+.osend[disabled]{opacity:.7;cursor:progress}
+.ofail{font-size:14px;color:#b3261e;background:#fbeceb;border-radius:4px;padding:10px 12px}.ofail p{margin:0}.ofail .ofb{margin-top:6px;color:var(--muted)}
+.ofail a,.olink{color:var(--maroon);font:inherit;font-weight:600;text-decoration:underline;background:none;border:0;padding:0;cursor:pointer}
+.onext{margin:0;font-size:15px;line-height:1.5}.onext a{color:var(--maroon);font-weight:600}
+.oreceipt{border:1px solid var(--rule);border-radius:4px;background:#fff;padding:10px 12px;font-size:14.5px}
+.oreceipt div{display:flex;justify-content:space-between;gap:10px;padding:2px 0}.oreceipt .tot{font-family:var(--display);font-weight:600;font-size:19px;border-top:1px dashed var(--rule);margin-top:4px;padding-top:6px}
+.oreceipt .ok{display:block;margin-top:8px;padding-top:8px;border-top:1px solid var(--rule);color:var(--muted);line-height:1.45}
 .opeek summary{cursor:pointer;font-size:14px;color:var(--muted);padding:4px 0}.opeek .omsg{margin:6px 0 8px}.opeek .obtn{width:100%}
 .omsg{margin:0;white-space:pre-wrap;font:14px/1.5 var(--body);background:var(--cream);border:1px dashed var(--gold);padding:10px 12px;border-radius:3px;max-height:180px;overflow:auto}
 .obtns{display:flex;gap:10px}
@@ -310,7 +326,7 @@ nav button.gtab{border-color:var(--gold)}
   </section>
 
   <footer>
-    <a class="order" href="https://instagram.com/nishaani_jewellery" target="_blank" rel="noopener">Order on Instagram · @nishaani_jewellery</a>
+    <a class="order" href="https://instagram.com/nishaani_jewellery" target="_blank" rel="noopener">Questions? Message us · @nishaani_jewellery</a>
     <p class="care">Keep your keepsake shining</p>
     <p class="care-list">keep dry · perfume first · store in its pouch · wipe gently</p>
   </footer>
@@ -319,42 +335,40 @@ nav button.gtab{border-color:var(--gold)}
 <dialog id="orderDlg" class="odlg" aria-labelledby="oTitle">
   <form id="orderForm" method="dialog" novalidate>
     <button type="button" class="ox" id="oClose" aria-label="Close">×</button>
-    <p class="okick">Make it yours</p>
+    <p class="okick">Checkout</p>
     <h2 id="oTitle">Order this piece</h2>
     <ul class="obag" id="oBag" hidden></ul>
     <div class="opiece" id="oPiece"><img id="oImg" alt=""><div><b id="oName"></b><span id="oPrice"></span></div></div>
     <div id="oFields">
+      <p class="osec">Delivery details</p>
       <label>Your name<input name="name" required autocomplete="name"></label>
-      <label>Phone or WhatsApp<input name="phone" type="tel" inputmode="tel" required autocomplete="tel"></label>
+      <label>Phone or WhatsApp<input name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="03xx xxxxxxx"></label>
+      <label>Full address <small>(house, street, area)</small><textarea name="address" rows="2" required autocomplete="street-address"></textarea></label>
       <label>City<input name="city" required autocomplete="address-level2"></label>
-      <label>Delivery address<input name="address" required autocomplete="street-address"></label>
       <div class="orow"><label id="oQtyL">Quantity<input name="qty" type="number" min="1" max="20" value="1" inputmode="numeric"></label>
-      <label class="ogift"><input name="gift" type="checkbox"> It's a gift <small>(free gift box + card 🎁)</small></label></div>
-      <label>Note <small>(ring size, gift message, colour)</small><textarea name="note" rows="2"></textarea></label>
+      <label class="ogift"><input name="gift" type="checkbox"> It's a gift <small>(free airtight box + gift card 🎁)</small></label></div>
+      <label>Note <small>(optional: ring size, gift message, colour)</small><textarea name="note" rows="2"></textarea></label>
+      <p class="osec">Payment</p>
+      <div class="opay" role="radiogroup" aria-label="Payment method">
+        <label class="opt"><input type="radio" name="pay" value="cod" checked><span><b>Cash on Delivery</b><small>Pay the rider when your parcel arrives</small></span></label>
+        <label class="opt" id="oPayT" hidden><input type="radio" name="pay" value="transfer"><span><b>JazzCash / Easypaisa / Bank transfer</b><small>Send the total first, we dispatch once it's received</small></span></label>
+        <div class="oacc" id="oAcc" hidden></div>
+      </div>
       <div class="osum" id="oSum" aria-live="polite"></div>
-      <ol class="osteps" aria-label="How your order reaches us"><li><i>1</i><span>We <b>copy</b> your order</span></li><li><i>2</i><span>You <b>open</b> our DM</span></li><li><i>3</i><span><b>Paste</b> &amp; send ♡</span></li></ol>
-      <p class="oerr" id="oErr" role="alert" hidden>Please add your name, phone, city and delivery address.</p>
-      <button type="submit" class="dm osend"><svg class="plane" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 2.5 2.8 9.6c-.8.3-.8 1.4 0 1.7l6.9 2.6 2.6 6.9c.3.8 1.4.8 1.7 0L21.5 2.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.7 13.9 21.5 2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="dmt"><b>Copy my order</b><small>next: paste it in our DM</small></span></button>
+      <p class="oerr" id="oErr" role="alert" hidden>Please add your name, phone, full address and city.</p>
+      <button type="submit" class="dm osend" id="oSend"><svg class="plane" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 2.5 2.8 9.6c-.8.3-.8 1.4 0 1.7l6.9 2.6 2.6 6.9c.3.8 1.4.8 1.7 0L21.5 2.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.7 13.9 21.5 2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="dmt"><b id="oSendT">Place order</b><small id="oSendS">we'll confirm on WhatsApp or a call</small></span></button>
+      <div class="ofail" id="oFail" hidden><p>We couldn't send your order. Please check your internet and tap <b>Place order</b> again.</p><p class="ofb">Still not working? <button type="button" id="oCopyFb" class="olink">Copy your order</button> and send it to us on <a href="https://instagram.com/nishaani_jewellery" target="_blank" rel="noopener">Instagram</a>.</p></div>
     </div>
     <div id="oDone" hidden>
-      <div class="ocheck"><span aria-hidden="true">✓</span><div><b>Your order is copied!</b><small>Just one more step to make it yours.</small></div></div>
-      <ol class="odo odo-ig">
-        <li><i>1</i><span>Close this page: tap <b>✕</b> at the top left</span></li>
-        <li><i>2</i><span>On our profile, tap <b>Message</b></span></li>
-        <li><i>3</i><span>Press &amp; hold, tap <b>Paste</b>, then <b>Send</b> ♡</span></li>
-      </ol>
-      <ol class="odo odo-web">
-        <li><i>1</i><span>Tap <b>Open our DM</b> below</span></li>
-        <li><i>2</i><span>Press &amp; hold the message box, then tap <b>Paste</b></span></li>
-        <li><i>3</i><span>Hit <b>Send</b>. That's it, we'll confirm soon ♡</span></li>
-      </ol>
-      <a id="oOpen" class="obtn solid big" href="https://ig.me/m/nishaani_jewellery" target="_blank" rel="noopener">Open our DM &amp; paste ✈</a>
-      <details class="opeek"><summary>See what's copied</summary><pre id="oMsg" class="omsg"></pre><button type="button" id="oCopy" class="obtn">Copy again</button></details>
+      <div class="ocheck"><span aria-hidden="true">✓</span><div><b>Thank you, your order is placed!</b><small>Order <span id="oNum"></span></small></div></div>
+      <p class="onext" id="oNext"></p>
+      <div class="oreceipt" id="oReceipt"></div>
+      <button type="button" class="obtn solid big" id="oDoneBtn">Continue browsing</button>
     </div>
   </form>
 </dialog>
 <div id="toast" class="toast" role="status" hidden></div>
-<button type="button" class="bagbar" id="bagBar" hidden><span class="bi" aria-hidden="true">👜</span><span class="bt"><b id="bagCount"></b><small id="bagTot"></small></span><span class="bgo">Order bag ✈</span></button>
+<button type="button" class="bagbar" id="bagBar" hidden><span class="bi" aria-hidden="true">👜</span><span class="bt"><b id="bagCount"></b><small id="bagTot"></small></span><span class="bgo">Checkout →</span></button>
 
 <script>
 const ITEMS=[
@@ -1119,39 +1133,55 @@ document.getElementById("oBag").addEventListener("click",e=>{const b=e.target.cl
 oForm.qty.addEventListener("input",updSum);
 document.getElementById("oClose").onclick=()=>dlg.close();
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
-function resetOrder(){document.getElementById("oFields").hidden=false;document.getElementById("oDone").hidden=true;document.getElementById("oErr").hidden=true;const d=dlg.querySelector(".opeek");if(d)d.open=false}
+function resetOrder(){document.getElementById("oFields").hidden=false;document.getElementById("oDone").hidden=true;document.getElementById("oErr").hidden=true;document.getElementById("oFail").hidden=true}
 dlg.addEventListener("close",resetOrder);
 const doneShowing=()=>dlg.open&&!document.getElementById("oDone").hidden;
-document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&doneShowing()){dlg.close();resetOrder()}});
-window.addEventListener("pagehide",()=>{if(doneShowing()){dlg.close();resetOrder()}});
-window.addEventListener("pageshow",e=>{if(e.persisted&&doneShowing()){dlg.close();resetOrder()}});
-oForm.addEventListener("submit",e=>{e.preventDefault();
-  const f=oForm,req=[f.name,f.phone,f.city,f.address];let ok=true;
-  req.forEach(x=>{const bad=!x.value.trim();x.toggleAttribute("aria-invalid",bad);if(bad){x.setAttribute("aria-invalid","true");ok=false}});
+/* Checkout: each order is emailed to Nishaani through FormSubmit (free, no server).
+   To add transfer details, fill PAY below; the transfer option shows only when at least one is filled. */
+const ORDER_TO="https://formsubmit.co/ajax/umamaaleem22@gmail.com";
+const PAY={jazzcash:"",easypaisa:"",bank:""}; // e.g. jazzcash:"0300 1234567 · Umama Aleem", bank:"Meezan · IBAN PK.. · Title"
+const PAYN={jazzcash:"JazzCash",easypaisa:"Easypaisa",bank:"Bank"};
+const hasPay=Object.values(PAY).some(v=>v);document.getElementById("oPayT").hidden=!hasPay;
+function accHtml(){return Object.keys(PAY).filter(k=>PAY[k]).map(k=>`<div><span>${PAYN[k]}</span><b>${esc(PAY[k])}</b></div>`).join("")}
+document.getElementById("oAcc").innerHTML=accHtml();
+oForm.addEventListener("change",e=>{if(e.target.name==="pay")document.getElementById("oAcc").hidden=oForm.pay.value!=="transfer"});
+function orderNo(){const d=new Date(),p=n=>String(n).padStart(2,"0");return "NS-"+p(d.getDate())+p(d.getMonth()+1)+"-"+Math.random().toString(36).slice(2,6).toUpperCase()}
+let lastMsg="",sending=false;
+oForm.addEventListener("submit",async e=>{e.preventDefault();if(sending)return;
+  const f=oForm,req=[f.name,f.phone,f.address,f.city];let ok=true;
+  req.forEach(x=>{const bad=!x.value.trim();x.removeAttribute("aria-invalid");if(bad){x.setAttribute("aria-invalid","true");ok=false}});
   if(!ok){document.getElementById("oErr").hidden=false;req.find(x=>!x.value.trim()).focus();return}
-  const q=Math.max(1,parseInt(f.qty.value)||1);
-  const BL=oMode==="bag"?bagLines():null,bsub=BL?BL.reduce((s,l)=>s+(l.it.price||0)*l.q,0):0;
-  const lines=BL?["Hi Nishaani! I'd like to place an order 💛","",
-    ...BL.map((l,k)=>`${k+1}. ${l.it.name} (${l.it.sku}) – ${l.it.price!=null?priceText(l.it.price):"price?"}${l.q>1?` × ${l.q}`:""}`),"",
-    `Pieces: ${BL.reduce((s,l)=>s+l.q,0)}`,`Subtotal: ${priceText(bsub)}`,`Delivery: ${priceText(DELIVERY)}`,`Total: ${priceText(bsub+DELIVERY)}`,""]:["Hi Nishaani! I'd like to place an order 💛","",
-    `Piece: ${oItem.name} (${oItem.sku})`,
-    oItem.price!=null?`Price: ${priceText(oItem.price)}${q>1?` × ${q}`:""}`:null,
-    `Quantity: ${q}`,
-    `Delivery: ${priceText(DELIVERY)}`,
-    oItem.price!=null?`Total: ${priceText(oItem.price*q+DELIVERY)}`:null,""];
-  lines.push(
-    `Name: ${f.name.value.trim()}`,`Phone: ${f.phone.value.trim()}`,`City: ${f.city.value.trim()}`,
-    `Address: ${f.address.value.trim()}`,
-    f.gift.checked?"This is a gift 🎁 (please add the free airtight black gift box and gift card)":null,
-    f.note.value.trim()?`Note: ${f.note.value.trim()}`:null);
-  const msg=lines.filter(x=>x!==null).join("\n");
-  if(BL){BAG=[];saveBag()}
-  copyText(msg);
-  document.getElementById("oMsg").textContent=msg;
-  document.getElementById("oFields").hidden=true;document.getElementById("oDone").hidden=false;
+  document.getElementById("oErr").hidden=true;
+  const L=orderLines(),sub=L.reduce((s,l)=>s+(l.it.price||0)*l.q,0),pieces=L.reduce((s,l)=>s+l.q,0),total=sub+DELIVERY;
+  const transfer=f.pay.value==="transfer",payTxt=transfer?"JazzCash / Easypaisa / Bank transfer":"Cash on Delivery";
+  const no=orderNo(),items=L.map(l=>`${l.q} × ${l.it.name} (${l.it.sku}) – ${l.it.price!=null?priceText(l.it.price*l.q):"price?"}`);
+  const gift=f.gift.checked,note=f.note.value.trim(),nm=f.name.value.trim(),ph=f.phone.value.trim(),ad=f.address.value.trim(),ct=f.city.value.trim();
+  lastMsg=[`Nishaani order ${no}`,"",...items,"",`Subtotal: ${priceText(sub)}`,`Delivery: ${priceText(DELIVERY)}`,`Total: ${priceText(total)}`,`Payment: ${payTxt}`,"",
+    `Name: ${nm}`,`Phone: ${ph}`,`Address: ${ad}`,`City: ${ct}`,gift?"Gift: yes 🎁 (airtight black box + gift card)":null,note?`Note: ${note}`:null].filter(x=>x!==null).join("\n");
+  const body={_subject:`New order ${no} · ${nm} · ${priceText(total)}`,_template:"table",_captcha:"false",
+    "Order":no,"Pieces":items.join("\n"),"Number of pieces":pieces,"Subtotal":priceText(sub),"Delivery":priceText(DELIVERY),"Total":priceText(total),
+    "Payment":payTxt,"Gift":gift?"Yes, add the free airtight black box and gift card":"No","Name":nm,"Phone":ph,"Address":ad,"City":ct,"Note":note||"–",
+    "Placed at":new Date().toLocaleString("en-PK",{timeZone:"Asia/Karachi"})};
+  const btn=document.getElementById("oSend"),bt=document.getElementById("oSendT");sending=true;btn.disabled=true;bt.textContent="Placing your order…";document.getElementById("oFail").hidden=true;
+  let sent=false;
+  try{const r=await fetch(ORDER_TO,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(body)});
+    const j=await r.json().catch(()=>({}));sent=r.ok&&String(j.success)!=="false"}catch(err){}
+  sending=false;btn.disabled=false;bt.textContent="Place order";
+  if(!sent){document.getElementById("oFail").hidden=false;return}
+  document.getElementById("oNum").textContent=no;
+  document.getElementById("oNext").innerHTML=transfer
+    ?`Please send <b>${priceText(total)}</b> to one of the accounts below, then send the payment screenshot with your order number to us on <a href="https://instagram.com/nishaani_jewellery" target="_blank" rel="noopener">Instagram</a> or WhatsApp. We'll dispatch as soon as it's received.`
+    :`We'll WhatsApp or call you on <b>${esc(ph)}</b> to confirm, then send it your way. Keep <b>${priceText(total)}</b> ready for the rider.`;
+  document.getElementById("oReceipt").innerHTML=L.map(l=>`<div><span>${l.q} × ${esc(l.it.name)}</span><span>${l.it.price!=null?priceText(l.it.price*l.q):"–"}</span></div>`).join("")
+    +`<div><span>Delivery</span><span>${priceText(DELIVERY)}</span></div><div class="tot"><span>Total</span><span>${priceText(total)}</span></div>`
+    +(transfer&&hasPay?`<div class="oacc" style="margin-top:8px;display:block">${accHtml()}</div>`:"")
+    +`<span class="ok">${payTxt}${gift?" · Gift 🎁 box + card":""}<br>${esc(nm)} · ${esc(ph)}<br>${esc(ad)}, ${esc(ct)}</span>`;
+  if(oMode==="bag"){BAG=[];saveBag()}
+  document.getElementById("oFields").hidden=true;document.getElementById("oDone").hidden=false;document.getElementById("oBag").hidden=true;document.getElementById("oPiece").hidden=true;document.getElementById("oTitle").textContent="Order placed ♡";dlg.scrollTop=0;
   try{localStorage.setItem("nishaani-buyer",JSON.stringify({name:f.name.value,phone:f.phone.value,city:f.city.value,address:f.address.value}))}catch(err){}
 });
-document.getElementById("oCopy").onclick=()=>{copyText(document.getElementById("oMsg").textContent);say("Copied again.")};
+document.getElementById("oCopyFb").onclick=()=>{copyText(lastMsg);say("Order copied. Paste it in our Instagram DM.",4000)};
+document.getElementById("oDoneBtn").onclick=()=>dlg.close();
 try{const s=JSON.parse(localStorage.getItem("nishaani-buyer")||"null");if(s)["name","phone","city","address"].forEach(k=>{if(s[k])oForm[k].value=s[k]})}catch(err){}
 grid.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.dataset&&(e.target.dataset.f==="name"||e.target.dataset.f==="price")){e.preventDefault();e.target.blur()}});
 editBtn.onclick=()=>{editing=!editing;editBtn.textContent=editing?"Done editing":"Edit catalogue";editBtn.setAttribute("aria-pressed",editing);editNote.hidden=!editing;render()};
