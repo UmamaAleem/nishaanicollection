@@ -1141,6 +1141,7 @@ const doneShowing=()=>dlg.open&&!document.getElementById("oDone").hidden;
    To add transfer details, fill PAY below; the transfer option shows only when at least one is filled. */
 const W3F_KEY="d2ccd584-84cb-4c4d-95da-65d8ce72801f";
 const ORDER_TO=W3F_KEY?"https://api.web3forms.com/submit":"https://formsubmit.co/ajax/umamaaleem22@gmail.com";
+const SHEET_URL=""; // Google Apps Script web app URL: each order is also added as a row in the orders sheet
 const PAY={jazzcash:"",easypaisa:"",bank:""}; // e.g. jazzcash:"0300 1234567 · Umama Aleem", bank:"Meezan · IBAN PK.. · Title"
 const PAYN={jazzcash:"JazzCash",easypaisa:"Easypaisa",bank:"Bank"};
 const hasPay=Object.values(PAY).some(v=>v);document.getElementById("oPayT").hidden=!hasPay;
@@ -1171,6 +1172,8 @@ oForm.addEventListener("submit",async e=>{e.preventDefault();if(sending)return;
     const j=await r.json().catch(()=>({}));sent=r.ok&&String(j.success)!=="false"}catch(err){}clearTimeout(tm);
   sending=false;btn.disabled=false;bt.textContent="Place order";
   if(!sent){document.getElementById("oFail").hidden=false;return}
+  if(SHEET_URL){const row={...body};delete row.access_key;delete row.subject;delete row.from_name;delete row._subject;delete row._template;delete row._captcha;
+    try{fetch(SHEET_URL,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(row)}).catch(()=>{})}catch(err){}}
   document.getElementById("oNum").textContent=no;
   document.getElementById("oNext").innerHTML=transfer
     ?`Please send <b>${priceText(total)}</b> to one of the accounts below, then send the payment screenshot with your order number to us on <a href="https://instagram.com/nishaani_jewellery" target="_blank" rel="noopener">Instagram</a> or WhatsApp. We'll dispatch as soon as it's received.`
