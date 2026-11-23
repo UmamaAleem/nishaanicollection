@@ -1141,7 +1141,7 @@ const doneShowing=()=>dlg.open&&!document.getElementById("oDone").hidden;
    To add transfer details, fill PAY below; the transfer option shows only when at least one is filled. */
 const W3F_KEY="d2ccd584-84cb-4c4d-95da-65d8ce72801f";
 const ORDER_TO=W3F_KEY?"https://api.web3forms.com/submit":"https://formsubmit.co/ajax/umamaaleem22@gmail.com";
-const SHEET_URL=""; // Google Apps Script web app URL: each order is also added as a row in the orders sheet
+const SHEET_URL="https://script.google.com/macros/s/AKfycbzGWOBeyINyXQOgVmW3ExD8PHZD3pvO6otJEAfPjrsYHMM3bhScgQkIjs01XLHlrRwA3w/exec"; // Google Apps Script web app URL: each order is also added as a row in the orders sheet
 const PAY={jazzcash:"",easypaisa:"",bank:""}; // e.g. jazzcash:"0300 1234567 · Umama Aleem", bank:"Meezan · IBAN PK.. · Title"
 const PAYN={jazzcash:"JazzCash",easypaisa:"Easypaisa",bank:"Bank"};
 const hasPay=Object.values(PAY).some(v=>v);document.getElementById("oPayT").hidden=!hasPay;
