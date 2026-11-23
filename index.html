@@ -1136,9 +1136,11 @@ dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
 function resetOrder(){document.getElementById("oFields").hidden=false;document.getElementById("oDone").hidden=true;document.getElementById("oErr").hidden=true;document.getElementById("oFail").hidden=true}
 dlg.addEventListener("close",resetOrder);
 const doneShowing=()=>dlg.open&&!document.getElementById("oDone").hidden;
-/* Checkout: each order is emailed to Nishaani through FormSubmit (free, no server).
+/* Checkout: each order is emailed to Nishaani through Web3Forms (free, no server). Put the access key from web3forms.com in W3F_KEY.
+   Until a key is set it falls back to FormSubmit.
    To add transfer details, fill PAY below; the transfer option shows only when at least one is filled. */
-const ORDER_TO="https://formsubmit.co/ajax/umamaaleem22@gmail.com";
+const W3F_KEY="";
+const ORDER_TO=W3F_KEY?"https://api.web3forms.com/submit":"https://formsubmit.co/ajax/umamaaleem22@gmail.com";
 const PAY={jazzcash:"",easypaisa:"",bank:""}; // e.g. jazzcash:"0300 1234567 · Umama Aleem", bank:"Meezan · IBAN PK.. · Title"
 const PAYN={jazzcash:"JazzCash",easypaisa:"Easypaisa",bank:"Bank"};
 const hasPay=Object.values(PAY).some(v=>v);document.getElementById("oPayT").hidden=!hasPay;
@@ -1163,9 +1165,10 @@ oForm.addEventListener("submit",async e=>{e.preventDefault();if(sending)return;
     "Payment":payTxt,"Gift":gift?"Yes, add the free airtight black box and gift card":"No","Name":nm,"Phone":ph,"Address":ad,"City":ct,"Note":note||"–",
     "Placed at":new Date().toLocaleString("en-PK",{timeZone:"Asia/Karachi"})};
   const btn=document.getElementById("oSend"),bt=document.getElementById("oSendT");sending=true;btn.disabled=true;bt.textContent="Placing your order…";document.getElementById("oFail").hidden=true;
-  let sent=false;
-  try{const r=await fetch(ORDER_TO,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(body)});
-    const j=await r.json().catch(()=>({}));sent=r.ok&&String(j.success)!=="false"}catch(err){}
+  let sent=false;if(W3F_KEY){body.access_key=W3F_KEY;body.subject=body._subject;body.from_name="Nishaani website";delete body._subject;delete body._template;delete body._captcha}
+  const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),20000);
+  try{const r=await fetch(ORDER_TO,{method:"POST",signal:ac.signal,headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(body)});
+    const j=await r.json().catch(()=>({}));sent=r.ok&&String(j.success)!=="false"}catch(err){}clearTimeout(tm);
   sending=false;btn.disabled=false;bt.textContent="Place order";
   if(!sent){document.getElementById("oFail").hidden=false;return}
   document.getElementById("oNum").textContent=no;
